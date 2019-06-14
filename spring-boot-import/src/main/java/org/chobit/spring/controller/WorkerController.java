@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @Order
 @RestController
@@ -27,5 +29,11 @@ public class WorkerController {
         System.out.println("============================>>>> Controller get");
         return service.get(id);
     }
+
+    @GetMapping("/all")
+    public List<Worker> all(){
+        return service.allWorkers();
+    }
+
 
 }

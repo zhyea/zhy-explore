@@ -2,7 +2,6 @@ package org.chobit.spring.tools;
 
 
 import org.chobit.spring.bean.Worker;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,11 +24,6 @@ public class WorkerControllerTest {
     private TestRestTemplate restTemplate;
 
 
-    @Before
-    public void setup() {
-        System.out.println();
-    }
-
     @Test
     public void get() {
         //when
@@ -35,6 +31,15 @@ public class WorkerControllerTest {
         //then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isEqualTo(new Worker("raccoon", 23));
+    }
+
+    @Test
+    public void all() {
+        //when
+        ResponseEntity<List> response = restTemplate.getForEntity("/worker/all", List.class);
+        //then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().size()).isEqualTo(4);
     }
 
 }
