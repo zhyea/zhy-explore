@@ -19,7 +19,7 @@ public class GaugeShow {
         Gauge<String> gauge = new Gauge<String>() {
             @Override
             public String getValue() {
-                return new SimpleDateFormat("yyMMddHHmmSS").format(new Date());
+                return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             }
         };
 
