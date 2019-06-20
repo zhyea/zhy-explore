@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({MyAnotherConfig.class,
-        MySelectConfig.class,
+        MyImportSelector.class,
         WorkerBeanDefinitionRegistrar.class})
 public class MyConfig {
 

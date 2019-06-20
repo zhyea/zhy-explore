@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,12 +22,6 @@ public class WorkerController {
     @Autowired
     private WorkerService service;
 
-
-    @GetMapping("/{id}")
-    public Worker get(@PathVariable("id") int id) {
-        System.out.println("============================>>>> Controller get");
-        return service.get(id);
-    }
 
     @GetMapping("/all")
     public List<Worker> all(){
