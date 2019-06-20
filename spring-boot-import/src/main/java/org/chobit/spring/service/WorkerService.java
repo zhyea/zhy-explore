@@ -11,23 +11,8 @@ import java.util.List;
 
 public class WorkerService {
 
-
-    private List<Worker> workers;
-
     @Autowired
     private WorkerBeanFactory factory;
-
-    public WorkerService() {
-        this.workers = new ArrayList<>(2);
-        workers.add(new Worker("robin", 33));
-        workers.add(new Worker("raccoon", 23));
-    }
-
-
-    public Worker get(int id) {
-        System.out.println("---------------------------->>>> Service get");
-        return workers.get(id - 1);
-    }
 
     public List<Worker> allWorkers() {
         List<Worker> list = new ArrayList<>(4);
@@ -40,5 +25,4 @@ public class WorkerService {
 
         return list;
     }
-
 }
