@@ -1,7 +1,6 @@
 package org.chobit.spring.tools;
 
 
-import org.chobit.spring.bean.Worker;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +21,6 @@ public class WorkerControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
-
-    @Test
-    public void get() {
-        //when
-        ResponseEntity<Worker> response = restTemplate.getForEntity("/worker/2", Worker.class);
-        //then
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isEqualTo(new Worker("raccoon", 23));
-    }
 
     @Test
     public void all() {

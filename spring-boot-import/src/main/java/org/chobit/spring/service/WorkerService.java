@@ -21,7 +21,7 @@ public class WorkerService {
         list.add(factory.get("selectTom"));
         list.add(factory.get("jerry"));
 
-        System.out.println(list);
+        list.stream().forEach(System.out::println);
 
         return list;
     }
