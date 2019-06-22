@@ -12,7 +12,7 @@ public class GaugeShow {
 
     public static void main(String[] args) throws InterruptedException {
         final MetricRegistry metrics = new MetricRegistry();
-        ConsoleReporter reporter = ConsoleReporter.forRegistry(metrics).build();
+        final ConsoleReporter reporter = ConsoleReporter.forRegistry(metrics).build();
         reporter.start(3, TimeUnit.SECONDS);
 
         Gauge<String> gauge = () -> new SimpleDateFormat("MM-dd HH:mm:ss").format(new Date());
