@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 
 public class CounterShow {
 
-
     public static void main(String[] args) {
 
         final MetricRegistry metrics = new MetricRegistry();
@@ -17,8 +16,15 @@ public class CounterShow {
 
         Counter counter = metrics.counter("异常监控");
 
-
+        for (int i = 0; i < 100; i++) {
+            try {
+                if (0 == i % 3) {
+                    throw new RuntimeException("自定义异常");
+                }
+                TimeUnit.SECONDS.sleep(1);
+            } catch (Exception e) {
+                counter.inc();
+            }
+        }
     }
-
-
 }
