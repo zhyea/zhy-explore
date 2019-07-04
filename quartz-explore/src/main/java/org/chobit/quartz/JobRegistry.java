@@ -3,13 +3,13 @@ package org.chobit.quartz;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JobProxy {
+public class JobRegistry {
 
     private final MyConfig config;
 
     private final Map<Class<? extends AbstractJob>, AbstractJob> myJobMap;
 
-    public JobProxy(MyConfig config) {
+    public JobRegistry(MyConfig config) {
         this.config = config;
         myJobMap = myJobMap();
     }

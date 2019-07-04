@@ -13,10 +13,10 @@ public class MyJobFactory implements JobFactory {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final JobProxy jobProxy;
+    private final JobRegistry jobRegistry;
 
-    public MyJobFactory(JobProxy jobProxy) {
-        this.jobProxy = jobProxy;
+    public MyJobFactory(JobRegistry jobRegistry) {
+        this.jobRegistry = jobRegistry;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MyJobFactory implements JobFactory {
                                 "', class=" + jobClass.getName());
             }
             if (AbstractJob.class.isAssignableFrom(jobClass)) {
-                return jobProxy.getInstance((Class<? extends AbstractJob>) jobClass);
+                return jobRegistry.getInstance((Class<? extends AbstractJob>) jobClass);
             }
 
             return jobClass.newInstance();
