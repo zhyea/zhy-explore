@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrams>
+  <diagram name="quartz">
+    <command command-class="de.frag.umlplugin.uml.command.AddClassCommand" psi-class="org.chobit.quartz.MyJobFactory" />
+    <command command-class="de.frag.umlplugin.uml.command.AddUsedClassesCommand" psi-class="org.chobit.quartz.MyJobFactory" />
+    <command command-class="de.frag.umlplugin.uml.command.AddUsedClassesCommand" psi-class="org.chobit.quartz.JobRegistry" />
+    <command command-class="de.frag.umlplugin.uml.command.AddExtendedClassesCommand" psi-class="org.chobit.quartz.MyJob" />
+    <command command-class="de.frag.umlplugin.uml.command.AddUsedClassesCommand" psi-class="org.chobit.quartz.AbstractJob" />
+    <compartment-visibility />
+  </diagram>
+</diagrams>
+
