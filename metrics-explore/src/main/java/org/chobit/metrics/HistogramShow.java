@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class HistogramShow {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         final MetricRegistry metrics = new MetricRegistry();
         final ConsoleReporter reporter = ConsoleReporter.forRegistry(metrics).build();
@@ -26,16 +26,13 @@ public class HistogramShow {
                 histogram.update(System.currentTimeMillis() - start);
             }
         }
-
     }
 
 
-    private static void delayedMethod() {
+    private static void delayedMethod() throws InterruptedException {
         long time = (long) (Math.random() * 1000);
-        try {
-            System.out.println("------>>method used time: " + time);
-            TimeUnit.MILLISECONDS.sleep(time);
-        } catch (InterruptedException e) {
-        }
+
+        System.out.println("------>>method used time: " + time);
+        TimeUnit.MILLISECONDS.sleep(time);
     }
 }
