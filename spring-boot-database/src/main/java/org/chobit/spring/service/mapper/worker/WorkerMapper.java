@@ -1,4 +1,4 @@
-package org.chobit.spring.service.mapper;
+package org.chobit.spring.service.mapper.worker;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +10,7 @@ import org.chobit.spring.entity.Worker;
 public interface WorkerMapper {
 
     @Update({
-            "create table if not exists user(",
+            "create table if not exists worker(",
             "id int auto_increment primary key,",
             "`name` varchar(64),",
             "age    int",

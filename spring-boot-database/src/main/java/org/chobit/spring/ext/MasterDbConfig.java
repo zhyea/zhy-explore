@@ -14,29 +14,29 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "org.chobit.spring.service.mapper.worker",
-        sqlSessionFactoryRef = "workerSqlSessionFactory")
-public class WorkerDbConfig {
+@MapperScan(basePackages = "org.chobit.spring.service.mapper.master",
+        sqlSessionFactoryRef = "masterSqlSessionFactory")
+public class MasterDbConfig {
 
-
-    @Bean(name = "workerDataSource")
-    @ConfigurationProperties(prefix = "custom.datasource.worker")
+    @Bean(name = "masterDataSource")
+    @ConfigurationProperties(prefix = "custom.datasource.master")
     public DataSource setDataSource() {
         return new DruidDataSource();
     }
 
 
-    @Bean(name = "workerTransactionManager")
-    public DataSourceTransactionManager setTransactionManager(@Qualifier("workerDataSource") DataSource dataSource) {
+    @Primary
+    @Bean(name = "masterTransactionManager")
+    public DataSourceTransactionManager setTransactionManager(@Qualifier("masterDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
 
-    @Primary
-    @Bean(name = "workerSqlSessionFactory")
-    public SqlSessionFactory setSqlSessionFactory(@Qualifier("workerDataSource") DataSource dataSource) throws Exception {
+    @Bean(name = "masterSqlSessionFactory")
+    public SqlSessionFactory setSqlSessionFactory(@Qualifier("masterDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
+
         return bean.getObject();
     }
 }
