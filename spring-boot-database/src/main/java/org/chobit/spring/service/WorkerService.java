@@ -2,7 +2,7 @@ package org.chobit.spring.service;
 
 
 import org.chobit.spring.entity.Worker;
-import org.chobit.spring.service.mapper.WorkerMapper;
+import org.chobit.spring.service.mapper.worker.WorkerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
