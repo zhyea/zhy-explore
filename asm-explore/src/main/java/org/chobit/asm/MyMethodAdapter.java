@@ -15,9 +15,9 @@ public class MyMethodAdapter extends AdviceAdapter {
 
     private int end;
 
-    private static final String systemOwner = System.class.getName().replace("\\.", "/");
+    private static final String systemOwner = System.class.getName().replace('.', '/');
 
-    private static final String watcherOwner = TimeClerk.class.getName().replace("\\.", "/");
+    private static final String watcherOwner = TimeClerk.class.getName().replace('.', '/');
 
     protected MyMethodAdapter(final MethodVisitor mv,
                               final int access,
