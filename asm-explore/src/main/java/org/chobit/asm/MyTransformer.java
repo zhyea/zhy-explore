@@ -38,7 +38,7 @@ public class MyTransformer implements ClassFileTransformer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return cw.toByteArray();
+        return bytes;
     }
 
 
