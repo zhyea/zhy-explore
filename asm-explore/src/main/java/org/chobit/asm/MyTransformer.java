@@ -24,8 +24,6 @@ public class MyTransformer implements ClassFileTransformer {
             return null;
         }
 
-        System.out.println("------------------------>>>>" + classBeingRedefined);
-
         ClassReader cr = new ClassReader(classfileBuffer);
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 
@@ -34,7 +32,7 @@ public class MyTransformer implements ClassFileTransformer {
 
         byte[] bytes = cw.toByteArray();
         try {
-            new FileOutputStream("/a.class").write(bytes);
+            new FileOutputStream("/zhy/A.class").write(bytes);
         } catch (IOException e) {
             e.printStackTrace();
         }

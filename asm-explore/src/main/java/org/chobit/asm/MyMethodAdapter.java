@@ -7,9 +7,7 @@ import org.objectweb.asm.commons.AdviceAdapter;
 
 public class MyMethodAdapter extends AdviceAdapter {
 
-    private String owner;
-
-    private boolean isConstructor;
+    private String methodId;
 
     private int start;
 
@@ -23,38 +21,34 @@ public class MyMethodAdapter extends AdviceAdapter {
                               final int access,
                               final String name,
                               final String desc,
-                              final String owner) {
+                              final String className) {
         super(ASM6, mv, access, name, desc);
-        this.owner = owner + "." + name;
-        this.isConstructor = name.equals("<init>");
+        this.methodId = (className + "." + name+desc).replace('/', '.');
     }
 
 
     @Override
     protected void onMethodEnter() {
-        if (!isConstructor) {
-            mv.visitMethodInsn(INVOKESTATIC, systemOwner, "currentTimeMillis", "()J", false);
-            start = newLocal(Type.LONG_TYPE);
-            mv.visitVarInsn(LSTORE, start);
-        }
+        visitMethodInsn(INVOKESTATIC, systemOwner, "currentTimeMillis", "()J", false);
+        start = newLocal(Type.LONG_TYPE);
+        visitVarInsn(LSTORE, start);
     }
 
 
     @Override
     protected void onMethodExit(int opcode) {
-        if (!isConstructor) {
-            mv.visitMethodInsn(INVOKESTATIC, systemOwner, "currentTimeMillis", "()J", false);
-            end = newLocal(Type.LONG_TYPE);
-            mv.visitVarInsn(LSTORE, end);
+        visitMethodInsn(INVOKESTATIC, systemOwner, "currentTimeMillis", "()J", false);
 
-            mv.visitLdcInsn(owner);
+        end = newLocal(Type.LONG_TYPE);
+        visitVarInsn(LSTORE, end);
 
-            mv.visitVarInsn(LLOAD, end);
-            mv.visitVarInsn(LLOAD, start);
-            mv.visitInsn(LSUB);
+        visitLdcInsn(methodId);
 
-            mv.visitMethodInsn(INVOKESTATIC, watcherOwner, "update", "(Ljava/lang/String;J)V", false);
-        }
+        visitVarInsn(LLOAD, end);
+        visitVarInsn(LLOAD, start);
+        visitInsn(LSUB);
+
+        visitMethodInsn(INVOKESTATIC, watcherOwner, "update", "(Ljava/lang/String;J)V", false);
     }
 
 
