@@ -25,7 +25,7 @@ public class MyTransformer implements ClassFileTransformer {
         }
 
         ClassReader cr = new ClassReader(classfileBuffer);
-        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
+        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 
         MyClassAdapter mca = new MyClassAdapter(cw);
         cr.accept(mca, ClassReader.EXPAND_FRAMES);
