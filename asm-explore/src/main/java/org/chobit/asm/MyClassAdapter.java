@@ -37,7 +37,7 @@ public class MyClassAdapter extends ClassVisitor {
                                      String[] exceptions) {
         System.out.println("--------->>" + name + "," + desc + "," + signature);
         MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
-        if (!isInterface && mv != null) {
+        if (!isInterface && null != mv) {
             mv = new MyMethodAdapter(mv, access, name, desc, owner);
         }
         return mv;

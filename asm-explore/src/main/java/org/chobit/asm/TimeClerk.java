@@ -14,6 +14,13 @@ public class TimeClerk {
         count.increment();
     }
 
+
+    public static void updateFailed(String methodId, long time) {
+        System.out.println("--------------------------->>>>>failed:" + methodId);
+        total.add(time);
+        count.increment();
+    }
+
     public static long avg() {
         return total.longValue() / count.longValue();
     }
