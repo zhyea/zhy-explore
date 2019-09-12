@@ -8,6 +8,15 @@ public class TimeClerk {
 
     static LongAdder count = new LongAdder();
 
+
+    public static void update(boolean success, String methodId, long time) {
+        if (success) {
+            update(methodId, time);
+        } else {
+            updateFailed(methodId, time);
+        }
+    }
+
     public static void update(String methodId, long time) {
         System.out.println("--------------------------->>>>>" + methodId);
         total.add(time);

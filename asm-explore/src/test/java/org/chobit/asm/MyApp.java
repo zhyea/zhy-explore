@@ -3,15 +3,15 @@ package org.chobit.asm;
 public class MyApp {
 
     public static void main(String[] args) {
+        boolean success = true;
         long start = System.currentTimeMillis();
         try {
             System.out.println("This is a test!");
         } catch (Throwable t) {
-            t.printStackTrace();
-            TimeClerk.updateFailed("zzzzz", System.currentTimeMillis() - start);
+            success = false;
             throw t;
         } finally {
-            TimeClerk.update("zzzzz", System.currentTimeMillis() - start);
+            TimeClerk.update(success, "zzzzz", System.currentTimeMillis() - start);
         }
     }
 
