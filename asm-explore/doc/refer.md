@@ -1,6 +1,10 @@
 
 ## Class
 
+使用idea的ASM Plugin非常有用。
+
+如下。
+
 原始类：
 
 ```java
@@ -38,12 +42,14 @@ public class org/chobit/asm/MyApp {
   // access flags 0x1
   public <init>()V
    L0
-    LINENUMBER 3 L0
+    LINENUMBER 5 L0
     ALOAD 0
     INVOKESPECIAL java/lang/Object.<init> ()V
-    RETURN
    L1
-    LOCALVARIABLE this Lorg/chobit/asm/MyApp; L0 L1 0
+    LINENUMBER 11 L1
+    RETURN
+   L2
+    LOCALVARIABLE this Lorg/chobit/asm/MyApp; L0 L2 0
     MAXSTACK = 1
     MAXLOCALS = 1
 
@@ -53,20 +59,20 @@ public class org/chobit/asm/MyApp {
     TRYCATCHBLOCK L0 L1 L3 null
     TRYCATCHBLOCK L2 L4 L3 null
    L5
-    LINENUMBER 6 L5
+    LINENUMBER 14 L5
     ICONST_1
     ISTORE 1
    L6
-    LINENUMBER 7 L6
+    LINENUMBER 15 L6
     INVOKESTATIC java/lang/System.currentTimeMillis ()J
     LSTORE 2
    L0
-    LINENUMBER 9 L0
+    LINENUMBER 17 L0
     GETSTATIC java/lang/System.out : Ljava/io/PrintStream;
     LDC "This is a test!"
     INVOKEVIRTUAL java/io/PrintStream.println (Ljava/lang/String;)V
    L1
-    LINENUMBER 14 L1
+    LINENUMBER 22 L1
     ILOAD 1
     LDC "zzzzz"
     INVOKESTATIC java/lang/System.currentTimeMillis ()J
@@ -74,22 +80,22 @@ public class org/chobit/asm/MyApp {
     LSUB
     INVOKESTATIC org/chobit/asm/TimeClerk.update (ZLjava/lang/String;J)V
    L7
-    LINENUMBER 15 L7
+    LINENUMBER 23 L7
     GOTO L8
    L2
-    LINENUMBER 10 L2
+    LINENUMBER 18 L2
    FRAME FULL [[Ljava/lang/String; I J] [java/lang/Throwable]
     ASTORE 4
    L9
-    LINENUMBER 11 L9
+    LINENUMBER 19 L9
     ICONST_0
     ISTORE 1
    L10
-    LINENUMBER 12 L10
+    LINENUMBER 20 L10
     ALOAD 4
     ATHROW
    L3
-    LINENUMBER 14 L3
+    LINENUMBER 22 L3
    FRAME SAME1 java/lang/Throwable
     ASTORE 5
    L4
@@ -102,7 +108,7 @@ public class org/chobit/asm/MyApp {
     ALOAD 5
     ATHROW
    L8
-    LINENUMBER 16 L8
+    LINENUMBER 24 L8
    FRAME SAME
     RETURN
    L11
