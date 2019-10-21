@@ -2,6 +2,7 @@ package org.chobit.spring.tools;
 
 
 import org.chobit.spring.entity.Master;
+import org.chobit.spring.ext.CustomConfig;
 import org.chobit.spring.service.MasterService;
 import org.chobit.spring.service.WorkerService;
 import org.junit.Assert;
@@ -19,7 +20,8 @@ public class MyAppTest {
     private WorkerService workerService;
     @Autowired
     private MasterService masterService;
-
+    @Autowired
+    private CustomConfig config;
 
     @Test
     public void getWorker() {
@@ -48,6 +50,12 @@ public class MyAppTest {
         masterService.insert();
         Assert.assertNull(masterService.get(1));
         Assert.assertNotNull(masterService.get(2));
+    }
+
+
+    @Test
+    public void config(){
+        System.out.println(config.getDatasource().size());
     }
 
 }
