@@ -1,0 +1,9 @@
+debug: false
+
+server:
+  port: 8087
+
+spring:
+  application:
+    name: spring-boot-nonweb
+
