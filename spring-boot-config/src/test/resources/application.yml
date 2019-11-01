@@ -4,15 +4,14 @@ server:
   port: 8087
 
 spring:
-  application:
-    name: spring-boot-test
+  profiles:
+    active: dev,test
 
 custom:
-  id: 128
-  whiteUrl:
-    - www.chobit.org
-    - www.zhyea.com
-  worker:
-    name: robin
-    age: 27
-  token: zhyeachobit
+  id: 120
+
+
+---
+spring:
+  profiles: prod
+...

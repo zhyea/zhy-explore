@@ -6,6 +6,14 @@ public class Worker {
 
     private int age;
 
+    public Worker() {
+    }
+
+    public Worker(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
     public String getName() {
         return name;
     }

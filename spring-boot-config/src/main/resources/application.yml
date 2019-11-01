@@ -5,15 +5,5 @@ server:
 
 spring:
   application:
-    name: spring-boot-test
+    name: spring-boot-config
 
-
-custom:
-  id: 128
-  whiteUrl:
-    - www.chobit.org
-    - www.zhyea.com
-  worker:
-    name: robin
-    age: 27
-  token: zhyeeeeeeee
