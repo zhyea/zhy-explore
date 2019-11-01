@@ -5,7 +5,7 @@ server:
 
 spring:
   profiles:
-    active: dev,test
+    active: dev
 
 custom:
   id: 120
