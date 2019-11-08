@@ -1,0 +1,16 @@
+debug: false
+
+server:
+  port: 8087
+
+spring:
+  application:
+    name: spring-boot-schedule
+  task:
+    scheduling:
+      pool:
+        size: 1
+    execution:
+      pool:
+        core-size: 2
+
