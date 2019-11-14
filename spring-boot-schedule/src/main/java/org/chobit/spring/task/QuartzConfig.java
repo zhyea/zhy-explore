@@ -5,11 +5,12 @@ import org.chobit.spring.quartz.MyQuartzJob;
 import org.quartz.*;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import java.util.UUID;
 
-//@Configuration
+@Configuration
 public class QuartzConfig implements InitializingBean {
 
     @Autowired
