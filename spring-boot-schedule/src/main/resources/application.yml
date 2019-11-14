@@ -13,4 +13,6 @@ spring:
     execution:
       pool:
         core-size: 2
+  quartz:
+    startupDelay: 10000 #这里是毫秒值
 
