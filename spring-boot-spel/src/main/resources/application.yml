@@ -1,0 +1,6 @@
+debug: false
+
+spring:
+  application:
+    name: spring-boot-spel
+
