@@ -18,7 +18,7 @@ public class ArithmeticOperator {
     @Value("#{10 * 2}") // 20
     private double multiply;
 
-    @Value("#{36 / 2}") // 19
+    @Value("#{36 / 2}") // 18
     private double divide;
 
     @Value("#{36 div 2}") // 18, the same as for / operator
