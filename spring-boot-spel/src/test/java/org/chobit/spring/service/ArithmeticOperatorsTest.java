@@ -1,15 +1,15 @@
 package org.chobit.spring.service;
 
 import org.chobit.spring.TestBase;
-import org.chobit.spring.operator.ArithmeticOperator;
+import org.chobit.spring.operator.ArithmeticOperators;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ArithmeticOperatorTest extends TestBase {
+public class ArithmeticOperatorsTest extends TestBase {
 
     @Autowired
-    private ArithmeticOperator arithmeticOperator;
+    private ArithmeticOperators arithmeticOperator;
 
     @Test
     public void add() {

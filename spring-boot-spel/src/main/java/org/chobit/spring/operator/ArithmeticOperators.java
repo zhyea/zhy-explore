@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ArithmeticOperator {
+public class ArithmeticOperators {
 
     @Value("#{19 + 1}") // 20
     private double add;
