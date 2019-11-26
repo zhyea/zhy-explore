@@ -1,4 +1,4 @@
-package org.chobit.spring.service;
+package org.chobit.spring.spel;
 
 import org.chobit.spring.TestBase;
 import org.chobit.spring.operator.ConditionalOperators;
