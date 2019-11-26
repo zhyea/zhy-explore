@@ -19,7 +19,9 @@ public class MyApplication {
 
     @Bean
     public Worker worker() {
-        return new Worker();
+        Worker w = new Worker();
+        w.setId("9527");
+        return w;
     }
 
 }
