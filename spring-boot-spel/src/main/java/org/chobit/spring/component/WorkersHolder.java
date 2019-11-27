@@ -11,8 +11,8 @@ import java.util.Map;
 @Component("workersHolder")
 public class WorkersHolder {
 
-
     private List<String> workers = new LinkedList<>();
+
     private Map<String, Integer> salaryByWorkers = new HashMap<>();
 
     public WorkersHolder() {

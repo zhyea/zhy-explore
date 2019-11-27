@@ -25,7 +25,7 @@ public class WorkersVisitor {
     private Integer numberOfWorkers;
 
 
-    public Integer getJohnSalary() {
+    public int getJohnSalary() {
         return johnSalary;
     }
 
@@ -33,7 +33,7 @@ public class WorkersVisitor {
         this.johnSalary = johnSalary;
     }
 
-    public Integer getGeorgeSalary() {
+    public int getGeorgeSalary() {
         return georgeSalary;
     }
 
@@ -41,7 +41,7 @@ public class WorkersVisitor {
         this.georgeSalary = georgeSalary;
     }
 
-    public Integer getSusieSalary() {
+    public int getSusieSalary() {
         return susieSalary;
     }
 
@@ -65,7 +65,7 @@ public class WorkersVisitor {
         this.lastWorker = lastWorker;
     }
 
-    public Integer getNumberOfWorkers() {
+    public int getNumberOfWorkers() {
         return numberOfWorkers;
     }
 
