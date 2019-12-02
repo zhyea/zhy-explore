@@ -31,7 +31,7 @@ public class WorkerApiTest extends ApiTestBase {
     public void update() {
         Map<String, Object> param = new HashMap<>(2);
         param.put("id", 9);
-        param.put("name", "zhyea.com");
+        param.put("name", "chobit.org");
         param.put("age", 5);
 
         Boolean r = testPut("", param, Boolean.class);
