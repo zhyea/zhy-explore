@@ -16,7 +16,7 @@ public class ResponseBodyWrapFactoryBean implements InitializingBean {
     private RequestMappingHandlerAdapter adapter;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         List<HandlerMethodReturnValueHandler> returnValueHandlers = adapter.getReturnValueHandlers();
 
         if (null != returnValueHandlers) {

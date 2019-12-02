@@ -27,17 +27,17 @@ public class WorkerApi {
     }
 
 
-    @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable("id") int id) {
-        System.out.println("------->>> delete worker: " + id);
-        return true;
-    }
-
-
     @GetMapping("/{id}")
     public Worker get(@PathVariable("id") int id) {
         System.out.println("------->>> get worker: " + id);
         return workerService.get(id);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable("id") int id) {
+        System.out.println("------->>> delete worker: " + id);
+        return true;
     }
 
 }

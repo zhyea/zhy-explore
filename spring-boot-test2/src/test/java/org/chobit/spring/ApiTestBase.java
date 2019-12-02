@@ -64,6 +64,21 @@ public abstract class ApiTestBase extends TestBase {
     }
 
 
+    protected Object testDelete(String path) {
+        path = buildPath(path);
+        ResponseEntity<ResultWrapper> response = restTemplate.exchange(path, HttpMethod.DELETE, null, ResultWrapper.class);
+        ResultWrapper w = response.getBody();
+        return getResponse(w);
+    }
+
+
+    protected <T> T testDelete(String path, Class<T> tClass) {
+        Object r = testDelete(path);
+        String json = toJson(r);
+        return fromJson(json, tClass);
+    }
+
+
     private String buildPath(String path) {
         String p = parentPath();
         if (!p.endsWith("/") && !path.startsWith("/")) {

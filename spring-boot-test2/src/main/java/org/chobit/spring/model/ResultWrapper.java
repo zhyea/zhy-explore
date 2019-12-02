@@ -9,7 +9,6 @@ public class ResultWrapper<T> {
 
     private T result;
 
-
     public int getCode() {
         return code;
     }
