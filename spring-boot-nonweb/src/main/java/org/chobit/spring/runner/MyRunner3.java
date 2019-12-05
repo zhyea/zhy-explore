@@ -13,9 +13,9 @@ public class MyRunner3 implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Please enter your name:");
         try (Scanner scanner = new Scanner(System.in)) {
-            // 这里执行会报错，因为MyRunner4会先执行，并在执行结束后将System.in关闭掉
-            String name = scanner.nextLine();
-            System.out.println("Hello " + name + "!");
+            // 这里执行会报错，因为MyRunner4会先执行，并在执行结束后将System.in关闭掉。故暂时注释
+            /*String name = scanner.nextLine();
+            System.out.println("Hello " + name + "!");*/
             System.out.println("Bye!");
         }
     }
