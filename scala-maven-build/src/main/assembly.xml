@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<assembly>
+
+    <!--这个id会出现在zip包名称的后面，zip文件的最终名称为：artifactId-version-id.zip -->
+    <id>full</id>
+
+    <!--设定打包格式，支持zip、tar、tar.gz (or tgz)、tar.bz2 (or tbz2)、jar、dir、war-->
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <dependencySets>
+        <!-- 用来定制工程依赖 jar 包的打包方式,依赖包的输出路径 -->
+        <dependencySet>
+            <!--依赖包存储位置-->
+            <outputDirectory>/libs</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+            <includes>
+                <!--配置要将哪些依赖的jar打到包里-->
+                <include>org.chobit.wp:wordpress-client</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+
+    <includeBaseDirectory>true</includeBaseDirectory>
+
+    <!--指设置需要包含的其他文件-->
+    <fileSets>
+        <!--打包jar文件-->
+        <fileSet>
+            <!-- 在包中的存储位置 -->
+            <outputDirectory>./</outputDirectory>
+            <!-- 源文件路径 -->
+            <directory>target</directory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+
+        <!--打包shell文件-->
+        <fileSet>
+            <outputDirectory>./</outputDirectory>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>*.properties</include>
+                <include>*.conf</include>
+            </includes>
+        </fileSet>
+
+        <!--打包shell文件-->
+        <fileSet>
+            <outputDirectory>./</outputDirectory>
+            <directory>shell</directory>
+            <includes>
+                <include>*.sh</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
