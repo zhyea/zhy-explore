@@ -1,0 +1,11 @@
+
+!/.idea/
+!/scala-maven-build.iml
+
+/target
+/.settings
+/.project
+.classpath
+/logs/
+.idea/
+*.iml
