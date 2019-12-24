@@ -5,7 +5,7 @@ import java.lang.instrument.Instrumentation;
 public class MyAgent {
 
     private static void premain(String options, Instrumentation ins) {
-        ins.addTransformer(new org.chobit.javassist.MyTransformer());
+        ins.addTransformer(new MyTransformer());
     }
 
 }
