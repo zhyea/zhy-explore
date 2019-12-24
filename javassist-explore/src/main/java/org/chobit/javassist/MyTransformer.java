@@ -25,45 +25,32 @@ public class MyTransformer implements ClassFileTransformer {
             return null;
         }
 
-
         byte[] bytes = classfileBuffer;
-
-        System.out.println(bytes.length);
 
         try {
 
             ClassPool cp = ClassPool.getDefault();
-            byte[] b = classfileBuffer;
             String name = className.replace('/', '.');
-            cp.insertClassPath(new ByteArrayClassPath(name, b));
+            cp.insertClassPath(new ByteArrayClassPath(name, bytes));
             CtClass cc = cp.get(name);
 
             CtMethod[] methods = cc.getMethods();
-            for (CtMethod mold : methods) {
-                System.out.println(mold.getDeclaringClass().getName());
-                if (!mold.getDeclaringClass().getName().equals(name)) {
+            for (CtMethod method : methods) {
+
+                if (!method.getDeclaringClass().getName().equals(name)) {
                     continue;
                 }
 
 
-                if (mold.getMethodInfo().isConstructor()) {
-                    continue;
-                }
+                method.addLocalVariable("$start", CtClass.longType);
+                method.insertBefore("$start=System.currentTimeMillis();");
 
-                System.out.println("--------------->>>" + mold.getName() + " - " + mold.getMethodInfo().getCodeAttribute());
-
-                final String beforeMethod = "{long startTime = System.currentTimeMillis(); System.out.println(\"Before Foo\");";
-                final String afterMethod = "finally {long diff = System.currentTimeMillis() - startTime; System.out.println(\"Foo completed in:\" + diff);}}";
-                mold.instrument(
-                        new ExprEditor() {
-                            public void edit(MethodCall m)
-                                    throws CannotCompileException {
-                                m.replace(beforeMethod + " try {$_ = $proceed($$); } " + afterMethod);
-                            }
-                        });
+                method.addLocalVariable("$diff", CtClass.longType);
+                method.insertAfter("$diff=System.currentTimeMillis()-$start;System.out.println($diff);", true);
             }
 
             bytes = cc.toBytecode();
+            cc.detach();
         } catch (Throwable t) {
             t.printStackTrace();
         }
@@ -75,7 +62,6 @@ public class MyTransformer implements ClassFileTransformer {
             e.printStackTrace();
         }
 
-        System.out.println(bytes.length);
         return bytes;
     }
 
