@@ -10,4 +10,10 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface Timing {
 
+
+    /**
+     * name of method
+     */
+    String value() default "";
+
 }
