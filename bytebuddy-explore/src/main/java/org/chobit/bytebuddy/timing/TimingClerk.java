@@ -1,4 +1,4 @@
-package org.chobit.bytebuddy;
+package org.chobit.bytebuddy.timing;
 
 import java.util.concurrent.atomic.LongAdder;
 

@@ -1,4 +1,4 @@
-package org.chobit.bytebuddy;
+package org.chobit.bytebuddy.timing;
 
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
