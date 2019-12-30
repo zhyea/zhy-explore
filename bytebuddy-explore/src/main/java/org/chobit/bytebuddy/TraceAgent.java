@@ -1,5 +1,6 @@
 package org.chobit.bytebuddy;
 
+import com.alibaba.ttl.threadpool.agent.TtlAgent;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.type.TypeDescription;
@@ -15,8 +16,9 @@ public class TraceAgent {
 
     public static void premain(String args, Instrumentation ins) {
 
-        AgentBuilder agentBuilder = new AgentBuilder.Default();
+        TtlAgent.premain(args, ins);
 
+        AgentBuilder agentBuilder = new AgentBuilder.Default();
 
         AgentBuilder.Transformer transformer = (builder, typeDescription, classLoader, javaModule) ->
                 builder.visit(
@@ -41,7 +43,6 @@ public class TraceAgent {
         };
 
         agentBuilder.with(listener).installOn(ins);
-
     }
 
 }
