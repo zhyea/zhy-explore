@@ -10,7 +10,7 @@ import static org.chobit.bytebuddy.tools.Strings.uuid;
 public class TrackContext {
 
 
-    private static final ThreadLocal<String> trackLocal = new ThreadLocal<String>();
+    private static final ThreadLocal<String> trackLocal = new ThreadLocal<>();
 
 
     public static void clear() {
