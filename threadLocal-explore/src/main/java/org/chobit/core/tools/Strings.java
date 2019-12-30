@@ -12,7 +12,7 @@ public abstract class Strings {
      * 生成UUID字符串
      */
     public static String uuid() {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().replace("-", "");
     }
 
 
