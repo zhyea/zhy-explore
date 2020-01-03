@@ -1,0 +1,23 @@
+project(':practice') {
+
+    dependencies {
+        compile project(":common")
+        compileOnly group: 'org.apache.spark', name: 'spark-sql_2.11', version: sparkVersion
+    }
+
+    jar {
+        archiveName = 'chobit-practice.jar'
+    }
+
+    task zip(type: Zip) {
+        into('lib') {
+            from(configurations.runtime) {
+                include '*typesafe*', '*common*', '*RoaringBitmap*'
+            }
+        }
+        into('') {
+            from jar
+            from 'shell'
+        }
+    }
+}
