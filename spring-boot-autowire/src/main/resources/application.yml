@@ -1,0 +1,7 @@
+debug: false
+
+spring:
+  application:
+    name: spring-boot-autowire
+  main:
+    web-application-type: none
