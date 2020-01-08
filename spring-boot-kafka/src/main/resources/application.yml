@@ -1,0 +1,21 @@
+debug: false
+
+server:
+  port: 8088
+
+spring:
+  application:
+    name: spring-boot-test2
+
+kafka:
+  common:
+    bootstrap_servers: kafka25:9092,kafka26:9092,kafka27:9092
+    max_poll_records: 3
+  consumers:
+    - group_id: test-group
+      topics: [test-topic1,test-topic2]
+      processor: zhyyy
+      count: 3
+  producer:
+    enable: true
+
