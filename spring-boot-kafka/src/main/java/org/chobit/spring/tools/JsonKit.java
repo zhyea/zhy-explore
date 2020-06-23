@@ -2,6 +2,7 @@ package org.chobit.spring.tools;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -39,6 +40,15 @@ public abstract class JsonKit {
             return mapper.writeValueAsString(src);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+
+    public static JsonNode parse(String json) {
+        try {
+            return mapper.readTree(json);
+        } catch (IOException e) {
+            return null;
         }
     }
 

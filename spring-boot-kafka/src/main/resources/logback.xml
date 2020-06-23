@@ -5,7 +5,36 @@
 
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <root level="WARN">
+    <appender name="DIFF_ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/diff.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/diff.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ALL_ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/all.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/all.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="diff" level="INFO" additivity="false">
+        <appender-ref ref="DIFF_ROLLING_FILE"/>
+    </logger>
+
+    <logger name="all" level="INFO" additivity="false">
+        <appender-ref ref="ALL_ROLLING_FILE"/>
+    </logger>
+
+
+    <root level="ERROR">
         <appender-ref ref="CONSOLE"/>
     </root>
 
