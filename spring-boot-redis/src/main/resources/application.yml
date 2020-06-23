@@ -1,0 +1,13 @@
+debug: false
+
+spring:
+  application:
+    name: spring-boot-nonweb
+  main:
+    web-application-type: none
+  redis:
+    host: 127.0.0.1
+    port: 6385
+    database: 0
+
+
