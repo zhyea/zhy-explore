@@ -23,6 +23,10 @@ public class MyRunner implements ApplicationRunner {
 
         String topic = "userstrategy-ad-bigc";
 
+        if (null == producer) {
+            return;
+        }
+
         while (count < 1000000) {
 
             AdClick click = new AdClick(count);
