@@ -1,6 +1,6 @@
 package org.chobit.spring.runner;
 
-import org.chobit.kafka.KafkaProducer;
+import com.ke.growth.kafka.KafkaProducer;
 import org.chobit.spring.model.AdClick;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
