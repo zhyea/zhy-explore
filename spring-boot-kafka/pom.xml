@@ -24,8 +24,8 @@
         </dependency>
         <dependency>
             <groupId>org.chobit.kafka</groupId>
-            <artifactId>spring-boot-starter-kafka</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <artifactId>kafka-spring-boot-starter</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
