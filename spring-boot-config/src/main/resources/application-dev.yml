@@ -1,0 +1,16 @@
+#
+# custom config
+custom:
+  id: !!int 126
+  token: zhyeeeeeeee
+  seq: !!str 11112222
+  whiteUrl:
+    - www.chobit.org
+    - www.zhyea.com
+  blackUrl: [www.black.com, 'www.forbidden.com']
+  worker1: &robin # a worker object
+    name: robin
+    age: 27
+  worker2: {name: jane, age: 22} # another worker object
+  worker3: *robin
+  content: 'line \n next line'
