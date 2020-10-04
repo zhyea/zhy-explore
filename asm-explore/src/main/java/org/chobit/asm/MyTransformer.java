@@ -24,27 +24,19 @@ public class MyTransformer implements ClassFileTransformer {
             return null;
         }
 
-
-        System.out.println("---------------------------0-");
-
         ClassReader cr = new ClassReader(classfileBuffer);
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 
-
-        System.out.println("---------------------------1-");
-
-        try{
+        try {
             MyClassAdapter mca = new MyClassAdapter(cw);
             cr.accept(mca, ClassReader.EXPAND_FRAMES);
-        }catch(Throwable t){
+        } catch (Throwable t) {
             t.printStackTrace();
         }
 
-        System.out.println("---------------------------2-");
-
         byte[] bytes = cw.toByteArray();
         try {
-            System.out.println("---------------------------3-");
+            System.out.println("---------------------------finished creating bytecode file");
             new FileOutputStream("/zhy/A.class").write(bytes);
         } catch (IOException e) {
             e.printStackTrace();

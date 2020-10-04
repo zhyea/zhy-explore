@@ -1,0 +1,25 @@
+debug: false
+
+server:
+  port: 8097
+
+spring:
+  application:
+    name: spring-boot-kafka
+  cache:
+    cache-names:
+
+kafka.unit:
+  id: test
+  common:
+    bootstrap-servers: kafka1,kafka2,kafka3
+    max-poll-records: 3
+    auto-offset-reset: latest
+  consumers:
+    - group_id: test-group00
+      topics: test-topic
+      processor: zhyyy
+      count: 16
+  producer:
+    enable: true
+

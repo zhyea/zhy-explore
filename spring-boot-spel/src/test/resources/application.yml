@@ -1,0 +1,7 @@
+debug: false
+
+spring:
+  application:
+    name: spring-boot-spel
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration, org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration
