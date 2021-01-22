@@ -8,7 +8,7 @@ public class MyApiTest extends ApiTestBase {
 
     @Override
     protected String parentPath() {
-        return "/api/worker";
+        return "/api/zhyea";
     }
 
 

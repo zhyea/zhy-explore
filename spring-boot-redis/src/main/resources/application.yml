@@ -2,12 +2,27 @@ debug: false
 
 spring:
   application:
-    name: spring-boot-nonweb
-  main:
-    web-application-type: none
+    name: spring-boot-redis
+  profiles:
+    active: prod
+
+---
+# dev
+spring:
+  profiles:
+    dev
   redis:
-    host: 127.0.0.1
+    host: 10.26.21.3
     port: 6385
     database: 0
 
+---
+# prod
+spring:
+  profiles:
+    prod
+  redis:
+    host: m11466.zeus.redis.ljnode.com
+    port: 11466
+    database: 0
 

@@ -1,6 +1,7 @@
 package org.chobit.spring.tools;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +30,15 @@ public abstract class JsonKit {
     public static <T> T fromJson(String json, Class<T> clazz) {
         try {
             return mapper.readValue(json, clazz);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static <T> T fromJson(String json, TypeReference<T> tr) {
+        try {
+            return mapper.readValue(json, tr);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
