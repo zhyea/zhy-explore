@@ -6,31 +6,16 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.chobit.quartz</groupId>
-    <artifactId>quartz-explore</artifactId>
+    <groupId>org.chobit.common</groupId>
+    <artifactId>uniqid</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <properties>
+    </properties>
+
     <dependencies>
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>2.3.2</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>c3p0</artifactId>
-                    <groupId>com.mchange</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>mchange-commons-java</artifactId>
-                    <groupId>com.mchange</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>HikariCP-java7</artifactId>
-                    <groupId>com.zaxxer</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+       
     </dependencies>
 
     <build>
