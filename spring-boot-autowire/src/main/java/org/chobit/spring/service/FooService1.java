@@ -11,9 +11,6 @@ public class FooService1 {
     @Autowired
     private FooFormatter fooFormatter;
 
-
-
-
     public String formatFoo() {
         return fooFormatter.format();
     }

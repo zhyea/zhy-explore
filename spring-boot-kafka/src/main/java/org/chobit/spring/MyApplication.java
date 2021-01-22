@@ -1,6 +1,6 @@
 package org.chobit.spring;
 
-import com.ke.growth.kafka.config.EnableKafkaClients;
+import org.chobit.kafka.config.EnableKafkaClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

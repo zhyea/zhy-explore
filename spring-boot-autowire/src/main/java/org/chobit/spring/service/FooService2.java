@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FooService2 {
 
+
     private FooFormatter fooFormatter;
 
 

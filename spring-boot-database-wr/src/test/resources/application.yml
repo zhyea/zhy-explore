@@ -1,0 +1,18 @@
+debug: false
+
+spring:
+  application:
+    name: spring-boot-database
+
+
+custom:
+  datasource:
+    worker:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:worker
+    master:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: org.h2.Driver
+      validation-query: select 1
+      url: jdbc:h2:mem:master

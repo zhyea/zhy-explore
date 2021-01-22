@@ -12,6 +12,7 @@ public class MyApi {
 
     @GetMapping("/{id}")
     public int get(@PathVariable("id") int id) {
+        System.out.println(1);
         return id;
     }
 
