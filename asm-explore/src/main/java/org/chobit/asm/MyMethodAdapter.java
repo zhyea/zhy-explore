@@ -3,24 +3,14 @@ package org.chobit.asm;
 
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Type;
 import org.objectweb.asm.commons.AdviceAdapter;
 
 public class MyMethodAdapter extends AdviceAdapter {
 
     private String methodId;
 
-    private final int start = newLocal(Type.LONG_TYPE);
 
-    private final int success = newLocal(Type.BOOLEAN_TYPE);
-
-    private final int throwable = newLocal(Type.getType(Throwable.class));
-
-    private static final String systemOwner = System.class.getName().replace('.', '/');
-
-    private static final String watcherOwner = TimeClerk.class.getName().replace('.', '/');
-
-    private Label tryStart = new Label(), tryEnd = new Label(), catchStart = new Label(), catchEnd = new Label();
+    private Label tryBlockStart = new Label(), tryBlockEnd = new Label(), catchExceptionBlockStart = new Label(), exitBlock = new Label();
 
     protected MyMethodAdapter(final MethodVisitor mv,
                               final int access,
@@ -33,14 +23,15 @@ public class MyMethodAdapter extends AdviceAdapter {
 
 
     @Override
+    public void visitCode(){
+
+        super.visitCode();
+        visitTryCatchBlock(tryBlockStart, tryBlockEnd, catchExceptionBlockStart, "java/lang/Exception");
+        visitLabel(tryBlockStart);
+    }
+
+    @Override
     protected void onMethodEnter() {
-        visitMethodInsn(INVOKESTATIC, systemOwner, "currentTimeMillis", "()J", false);
-        visitVarInsn(LSTORE, start);
-
-        visitInsn(ICONST_0);
-        visitVarInsn(ISTORE, success);
-
-        mv.visitLabel(tryStart);
     }
 
 
@@ -51,23 +42,28 @@ public class MyMethodAdapter extends AdviceAdapter {
 
     @Override
     public void visitMaxs(int maxStack, int maxLocals) {
-        visitTryCatchBlock(tryStart, tryEnd, tryEnd, null);
-        visitLabel(tryEnd);
-        insertWatcher();
-        visitInsn(ATHROW);
-        super.visitMaxs(maxStack + 4, maxLocals);
+        // visit try block end label
+        this.visitLabel(tryBlockEnd);
+        // visit normal execution exit block
+        this.visitJumpInsn(GOTO, exitBlock);
+
+        // visit catch exception block
+        this.visitLabel(catchExceptionBlockStart);
+        // store the exception
+        this.visitVarInsn(ASTORE, ACONST_NULL);
+        // load the exception
+        this.visitVarInsn(ALOAD, ACONST_NULL);
+        // call printStackTrace()
+        //this.visitInsn(Opcodes.ATHROW);
+        this.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Exception", "printStackTrace", "()V", false);
+
+
+        // exit from this dynamic block
+        this.visitLabel(exitBlock);
+
+        super.visitMaxs(maxStack + 2, maxLocals + 2);
     }
 
 
-    private void insertWatcher() {
-        visitVarInsn(ILOAD, success);
 
-        visitLdcInsn(methodId);
-
-        visitMethodInsn(INVOKESTATIC, systemOwner, "currentTimeMillis", "()J", false);
-        visitVarInsn(LLOAD, start);
-        visitInsn(LSUB);
-
-        visitMethodInsn(INVOKESTATIC, watcherOwner, "update", "(ZLjava/lang/String;J)V", false);
-    }
 }
