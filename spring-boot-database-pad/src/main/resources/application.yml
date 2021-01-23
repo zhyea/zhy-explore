@@ -1,0 +1,13 @@
+debug: false
+
+server:
+  port: 8087
+
+spring:
+  application:
+    name: spring-boot-database-pad
+  datasource:
+    dbcp2:
+      driver: org.h2.Driver
+      url: jdbc:h2:mem:worker
+      validation-query: select 1
