@@ -10,6 +10,7 @@
 */.idea
 *.iml
 */*.iml
+*/*.zip
 */target/
 */*/target/
 *.mv.db
