@@ -2,10 +2,7 @@
 
 相关文章
 
-
-
-https://blog.csdn.net/yunzhaji3762/article/details/79750343
+[SpringBoot MyBatis读写分离](http://www.zhyea.com/2021/01/24/springboot-12-springboot-mybatis-write-read-split.html)
 
 
 
-https://blog.csdn.net/belvine/article/details/86219907
