@@ -39,5 +39,4 @@ public class MybatisReadInterceptor implements Interceptor {
     public void setProperties(Properties properties) {
     }
 
-
 }

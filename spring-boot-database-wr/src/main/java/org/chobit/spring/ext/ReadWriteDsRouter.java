@@ -52,5 +52,4 @@ public class ReadWriteDsRouter extends AbstractRoutingDataSource {
         super.afterPropertiesSet();
     }
 
-
 }

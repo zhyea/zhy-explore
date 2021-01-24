@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class DsConfig {
 
-
     @Bean(name = "readCfg")
     @ConfigurationProperties("datasource.read")
     public DataSourceProperties readConfig() {
@@ -26,6 +25,5 @@ public class DsConfig {
     public DataSourceProperties writeConfig() {
         return new DataSourceProperties();
     }
-
 
 }
