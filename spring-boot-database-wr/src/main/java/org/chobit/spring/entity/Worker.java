@@ -2,8 +2,11 @@ package org.chobit.spring.entity;
 
 import java.util.Objects;
 
+/**
+ * @author robin
+ */
 public class Worker {
-    
+
     private int id;
 
     private String name;
@@ -37,8 +40,12 @@ public class Worker {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Worker worker = (Worker) o;
         return age == worker.age &&
                 Objects.equals(name, worker.name);
@@ -47,5 +54,14 @@ public class Worker {
     @Override
     public int hashCode() {
         return Objects.hash(name, age);
+    }
+
+    @Override
+    public String toString() {
+        return "Worker{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
