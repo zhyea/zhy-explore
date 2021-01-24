@@ -1,6 +1,6 @@
 package org.chobit.spring.ext;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -21,7 +21,7 @@ public class MasterDbConfig {
     @Bean(name = "masterDataSource")
     @ConfigurationProperties(prefix = "custom.datasource.master")
     public DataSource setDataSource() {
-        return new DruidDataSource();
+        return new BasicDataSource();
     }
 
 
