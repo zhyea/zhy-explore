@@ -1,4 +1,4 @@
-# VertX-explore
+# Vert·X
 
 
-VertX 学习记录
+[官方中文文档](https://vertxchina.github.io/vertx-translation-chinese/start/Start.html)
