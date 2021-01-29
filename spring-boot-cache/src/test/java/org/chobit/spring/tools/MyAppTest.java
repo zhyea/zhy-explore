@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.concurrent.TimeUnit;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class MyAppTest {
@@ -16,10 +18,13 @@ public class MyAppTest {
     private WorkerService service;
 
     @Test
-    public void get() {
+    public void get() throws InterruptedException {
         service.get(2);
+        TimeUnit.SECONDS.sleep(30);
         service.get(2);
+        TimeUnit.SECONDS.sleep(30);
         service.get(2);
+        TimeUnit.SECONDS.sleep(30);
         service.get(2);
     }
 
