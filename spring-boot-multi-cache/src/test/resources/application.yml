@@ -1,0 +1,13 @@
+debug: false
+
+server:
+  port: 8087
+
+spring:
+  application:
+    name: spring-boot-test
+
+caching:
+  spec: initialCapacity=1048576,maximumSize=1073741824,expireAfterAccess=10m
+  special:
+    worker: initialCapacity=32,maximumSize=128,expireAfterWrite=30s
