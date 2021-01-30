@@ -10,5 +10,3 @@ spring:
     type: CAFFEINE
     caffeine:
       spec: initialCapacity=1048576,maximumSize=1073741824,expireAfterAccess=10m
-      special:
-        worker: initialCapacity=32,maximumSize=128,expireAfterWrite=3m

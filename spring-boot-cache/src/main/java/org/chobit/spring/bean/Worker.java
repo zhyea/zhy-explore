@@ -46,4 +46,12 @@ public class Worker {
     public int hashCode() {
         return Objects.hash(name, age);
     }
+
+    @Override
+    public String toString() {
+        return "Worker{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }
