@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: spring-boot-test
+    name: spring-boot-multi-cache
 
 
 caching:

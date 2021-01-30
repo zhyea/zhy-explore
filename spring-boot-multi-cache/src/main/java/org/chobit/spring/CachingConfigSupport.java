@@ -4,14 +4,12 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,22 +21,22 @@ import static org.apache.logging.log4j.util.Strings.isNotBlank;
 /**
  * @author robin
  */
-@Configuration
-public class CachingConfig {
+//@Configuration
+public class CachingConfigSupport extends CachingConfigurerSupport {
 
-    private static final Logger logger = LoggerFactory.getLogger(CachingConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(CachingConfigSupport.class);
+
 
     @Value("${caching.spec}")
     private String commonSpec;
 
     @Bean
-    @ConfigurationProperties("caching.special")
+    //@ConfigurationProperties("caching.special")
     public Map<String, String> getSpecialCase() {
         return new HashMap<>(4);
     }
 
-    @Bean
-    @Primary
+    @Override
     public CacheManager cacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
         if (isNotBlank(this.commonSpec)) {
