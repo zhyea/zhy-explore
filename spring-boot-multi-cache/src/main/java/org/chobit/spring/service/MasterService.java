@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author robin
+ */
 @Service
-@CacheConfig(cacheNames = "master")
+@CacheConfig(cacheNames = "master", cacheResolver = "multi")
 public class MasterService {
 
 
