@@ -1,6 +1,5 @@
 package org.chobit.vertx;
 
-import io.vertx.core.Context;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -17,16 +16,6 @@ public class VertxServer {
         DeploymentOptions deployOpts = new DeploymentOptions().setInstances(36);
 
         Vertx vertx = Vertx.vertx(options);
-
-
-        Context context = vertx.getOrCreateContext();
-        if (context.isEventLoopContext()) {
-            System.out.println("Context attached to Event Loop");
-        } else if (context.isWorkerContext()) {
-            System.out.println("Context attached to Worker Thread");
-        } else if (!Context.isOnVertxThread()) {
-            System.out.println("Context not attached to a thread managed by vert.x");
-        }
 
         vertx.deployVerticle(MyFirstVerticle.class.getName(), deployOpts, res -> {
             if (res.succeeded()) {
