@@ -9,17 +9,10 @@ spring:
   cache:
     cache-names:
 
-kafka.unit:
-  id: test
-  common:
-    bootstrap-servers: kafka1,kafka2,kafka3
-    max-poll-records: 3
-    auto-offset-reset: latest
-  consumers:
-    - group_id: test-group00
+kafka:
+  config:
+    test-group00:
+      bootstrap-servers: kafka1,kafka2,kafka3
       topics: test-topic
       processor: zhyyy
-      count: 16
-  producer:
-    enable: true
-
+      count: 4
