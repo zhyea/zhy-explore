@@ -1,9 +1,12 @@
 package org.chobit.spring;
 
-import org.chobit.kafka.config.EnableKafkaClients;
+import org.chobit.spring.config.EnableKafkaClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author robin
+ */
 @EnableKafkaClients
 @SpringBootApplication
 public class MyApplication {
