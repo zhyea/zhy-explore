@@ -14,5 +14,6 @@ kafka:
     test-group00:
       bootstrap-servers: kafka1,kafka2,kafka3
       topics: test-topic
-      processor: zhyyy
-      count: 4
+      consumer:
+        processor: zhyyy
+        count: 4
