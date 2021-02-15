@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 
+/**
+ * @author robin
+ */
 @Component("zhyyy")
 public class MyProcessor implements Processor<String, String> {
 
