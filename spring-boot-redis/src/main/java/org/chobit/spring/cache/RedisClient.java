@@ -3,8 +3,8 @@ package org.chobit.spring.cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -18,11 +18,11 @@ import java.util.concurrent.TimeUnit;
 public class RedisClient {
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private RedisTemplate<Object, Object> redisTemplate;
 
 
     public String get(String key) {
-        return redisTemplate.opsForValue().get(key);
+        return String.valueOf(redisTemplate.opsForValue().get(key));
     }
 
 
@@ -39,6 +39,12 @@ public class RedisClient {
     public Boolean setIfAbsent(String key, String value, Duration timeout) {
         return redisTemplate.opsForValue().setIfAbsent(key, value, timeout);
     }
+
+
+    public Boolean delete(String key){
+        return redisTemplate.delete(key);
+    }
+
 
 
     public String hget(String key, String field) {
