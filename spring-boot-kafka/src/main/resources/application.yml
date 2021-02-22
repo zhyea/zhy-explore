@@ -1,0 +1,40 @@
+debug: false
+
+spring:
+  application:
+    name: spring-boot-kafka
+
+
+kafka:
+  common:
+    consumer:
+      prop1: value1
+      prop2: value2
+    producer:
+      prop3: value3
+      prop4: value4
+  config:
+    test-group00:
+      bootstrapServers: kafka1,kafka2,kafka3
+      topics: test-topic
+      consumer:
+        autoOffsetReset: latest
+        processor: zhyyy
+        count: 4
+        keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
+        valueDeserializer: org.apache.kafka.common.serialization.StringDeserializer
+        props:
+          prop1: value1
+          prop2: value2
+      producer:
+        keySerializer: org.apache.kafka.common.serialization.StringSerializer
+        valueSerializer: org.apache.kafka.common.serialization.StringSerializer
+        props:
+          prop3: value3
+          prop4: value4
+    test-group02:
+      bootstrapServers: kafka4,kafka5,kafka6
+      topics: test-topic2
+      consumer:
+        autoOffsetReset: latest
+        processor: zhyyy
