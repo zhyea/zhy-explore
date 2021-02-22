@@ -17,7 +17,9 @@ public class MyProcessor implements Processor<String, String> {
 
         for (ConsumerRecord<String, String> r : records) {
             String json = r.value();
-            System.out.println(json);
+            if (json.contains("COMMON_UV") ) {
+                System.out.println(json);
+            }
         }
     }
 
