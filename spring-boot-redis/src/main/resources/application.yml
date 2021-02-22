@@ -1,0 +1,28 @@
+debug: false
+
+spring:
+  application:
+    name: spring-boot-redis
+  profiles:
+    active: prod
+
+---
+# dev
+spring:
+  profiles:
+    dev
+  redis:
+    host: 127.0.0.1
+    port: 6385
+    database: 0
+
+---
+# prod
+spring:
+  profiles:
+    prod
+  redis:
+    host: 127.0.0.2
+    port: 6386
+    database: 0
+
