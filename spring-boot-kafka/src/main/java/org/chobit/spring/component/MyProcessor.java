@@ -2,18 +2,15 @@ package org.chobit.spring.component;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.chobit.kafka.Processor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.chobit.spring.Processor;
 import org.springframework.stereotype.Component;
 
 
+/**
+ * @author robin
+ */
 @Component("zhyyy")
 public class MyProcessor implements Processor<String, String> {
-
-
-    private static final Logger logger = LoggerFactory.getLogger(MyProcessor.class);
-
 
     @Override
     public void process(ConsumerRecords<String, String> records) {
