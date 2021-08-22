@@ -1,0 +1,11 @@
+#
+spring:
+  application:
+    name: gxt-explore
+
+server:
+  port: 8190
+
+debug:
+  false
+
