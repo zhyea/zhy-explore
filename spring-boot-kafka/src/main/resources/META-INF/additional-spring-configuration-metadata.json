@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "kafka.common.consumer.prop.xxx",
+      "type": "java.lang.String",
+      "description": "Description for kafka.common.consumer.prop.xxx."
+  }
+] }
