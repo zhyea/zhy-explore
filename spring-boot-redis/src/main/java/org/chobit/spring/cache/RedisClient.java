@@ -96,14 +96,9 @@ public class RedisClient {
     }
 
 
-    public void multiSetBit(final String key, boolean value, long timeout, TimeUnit timeUnit, int... offsets) {
+    public void multiSetBit(final String key, boolean value, int... offsets) {
         redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
             byte[] bytes = key.getBytes();
-            // 不存在则设置超时
-            Boolean r = connection.exists(bytes);
-            if (null != r && !r) {
-                connection.expire(bytes, timeUnit.toSeconds(timeout));
-            }
             for (long offset : offsets) {
                 connection.setBit(bytes, offset, value);
             }

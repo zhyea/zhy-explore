@@ -16,6 +16,9 @@ public class BloomFilterHelper {
         numHashFunctions = optimalNumOfHashFunctions(expectedInsertions, bitSize);
     }
 
+    /**
+     * 计算offset
+     */
     public int[] murmurHashOffset(String value) {
         int[] offset = new int[numHashFunctions];
 

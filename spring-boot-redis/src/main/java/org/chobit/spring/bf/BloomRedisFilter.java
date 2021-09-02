@@ -18,13 +18,6 @@ public class BloomRedisFilter {
     private final BloomFilterHelper bloomFilterHelper = new BloomFilterHelper(10000 * 10000, 0.001);
 
 
-    public void add(String value) {
-        String key = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        int[] offsets = bloomFilterHelper.murmurHashOffset(value);
-        redisClient.multiSetBit(key, true, 1, TimeUnit.DAYS, offsets);
-    }
-
-
     public boolean check(String value) {
         String key = new SimpleDateFormat("yyyyMMdd").format(new Date());
         int[] offsets = bloomFilterHelper.murmurHashOffset(value);
@@ -51,7 +44,7 @@ public class BloomRedisFilter {
         }
         int[] offsets = bloomFilterHelper.murmurHashOffset(value);
         boolean r = check0(key, offsets);
-        redisClient.multiSetBit(key, true, 1, TimeUnit.DAYS, offsets);
+        redisClient.multiSetBit(key, true, offsets);
         return r;
     }
 
