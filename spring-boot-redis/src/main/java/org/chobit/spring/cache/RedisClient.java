@@ -70,6 +70,11 @@ public class RedisClient {
     }
 
 
+    public Long increment(String key) {
+        return redisTemplate.opsForValue().increment(key);
+    }
+
+
     public List<String> keys(String pattern) {
         ScanOptions ops = ScanOptions.scanOptions().match(pattern).count(100).build();
 

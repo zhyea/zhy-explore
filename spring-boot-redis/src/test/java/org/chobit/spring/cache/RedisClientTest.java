@@ -29,4 +29,15 @@ public class RedisClientTest extends TestBase {
         System.out.println(keys);
     }
 
+
+    @Test
+    public void increment(){
+        String key = "abc123-de";
+        client.increment(key);
+        client.increment(key);
+        client.increment(key);
+        String v = client.get(key);
+        System.out.println(v);
+    }
+
 }
