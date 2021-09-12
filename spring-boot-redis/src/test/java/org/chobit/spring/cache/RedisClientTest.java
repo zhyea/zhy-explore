@@ -24,9 +24,20 @@ public class RedisClientTest extends TestBase {
 
     @Test
     public void keys() {
-        String pattern = "dsp:toutiao_access_token_1643174763701255*";
+        String pattern = "";
         List<String> keys = client.keys(pattern);
         System.out.println(keys);
+    }
+
+
+    @Test
+    public void increment(){
+        String key = "abc123-de";
+        client.increment(key);
+        client.increment(key);
+        client.increment(key);
+        String v = client.get(key);
+        System.out.println(v);
     }
 
 }

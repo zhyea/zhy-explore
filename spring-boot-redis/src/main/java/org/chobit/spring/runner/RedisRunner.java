@@ -3,12 +3,11 @@ package org.chobit.spring.runner;
 import org.chobit.spring.cache.RedisClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 
-@Component
+//@Component
 public class RedisRunner implements CommandLineRunner {
 
     @Autowired
@@ -30,7 +29,7 @@ public class RedisRunner implements CommandLineRunner {
                         System.out.println(client.get(arr[1]));
                         break;
                     case "hget":
-                        System.out.println(client.hget(arr[1], arr[2]));
+                        System.out.println(client.hGet(arr[1], arr[2]));
                     case "del":
                         System.out.println(client.delete(arr[1]));
                     case "keys":
