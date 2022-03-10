@@ -1,6 +1,7 @@
 package org.chobit.core.tools;
 
 import java.util.Collection;
+import java.util.UUID;
 
 /**
  * @author zhangrui137
@@ -26,6 +27,10 @@ public final class ToolKit {
         return true;
     }
 
+
+    public static String uuid() {
+        return UUID.randomUUID().toString();
+    }
 
     public static boolean isNotBlank(String str) {
         return !isBlank(str);

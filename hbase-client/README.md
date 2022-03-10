@@ -1,4 +1,4 @@
-# IO-explore
+# HBase Client
 
 
-Java IO 使用记录
+Java HBase 使用记录

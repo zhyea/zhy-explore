@@ -31,10 +31,12 @@ public class HBaseClient {
      * 连接信息
      */
     private final Connection conn;
+    private final String namespace;
 
 
-    public HBaseClient(String hBaseZkCluster) {
-        this.conn = connect(hBaseZkCluster);
+    public HBaseClient(String hBaseZkCluster, String namespace) {
+        this.conn = createConnect(hBaseZkCluster);
+        this.namespace = namespace;
     }
 
     /**
@@ -43,7 +45,7 @@ public class HBaseClient {
     public void delete(String tableName, String rowKey) {
         try {
             Delete delete = new Delete(Bytes.toBytes(rowKey));
-            Table table = conn.getTable(TableName.valueOf(tableName));
+            Table table = tableOf(tableName);
             table.delete(delete);
         } catch (Exception e) {
             logger.error("delete row from hbase error. table:[{}], rowKey:[{}]", tableName, rowKey, e);
@@ -62,10 +64,11 @@ public class HBaseClient {
                 byte[] vl = Bytes.toBytes(column.getValue());
                 put.addColumn(cf, qa, vl);
             }
-            Table table = conn.getTable(TableName.valueOf(tableName));
+            Table table = tableOf(tableName);
             table.put(put);
         } catch (Exception e) {
             logger.error("put into hbase error. table:[{}], row:{}", tableName, row, e);
+            e.printStackTrace();
         }
     }
 
@@ -85,10 +88,11 @@ public class HBaseClient {
         try {
             Put put = new Put(Bytes.toBytes(rowKey));
             put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes(qualifier), value);
-            Table table = conn.getTable(TableName.valueOf(tableName));
+            Table table = tableOf(tableName);
             table.put(put);
         } catch (Exception e) {
             logger.error("put into hbase error. table:[{}], row:[{}:{}:{}]", tableName, rowKey, columnFamily, qualifier, e);
+            e.printStackTrace();
         }
     }
 
@@ -120,12 +124,13 @@ public class HBaseClient {
     public List<String> get(String tableName, String rowKey, String columnFamily, String qualifier) {
         try {
             Get get = buildGet(rowKey, columnFamily, qualifier);
-            Table table = conn.getTable(TableName.valueOf(tableName));
+            Table table = tableOf(tableName);
 
             Result r = table.get(get);
             return readResult(r);
         } catch (IOException e) {
             logger.error("get from hbase error. table:[{}], row:[{}:{}:{}]", tableName, rowKey, columnFamily, qualifier, e);
+            e.printStackTrace();
         }
         return null;
     }
@@ -140,7 +145,7 @@ public class HBaseClient {
                 gets.add(get);
             }
 
-            Table table = conn.getTable(TableName.valueOf(tableName));
+            Table table = tableOf(tableName);
             Result[] results = table.get(gets);
 
             for (Result r : results) {
@@ -149,6 +154,7 @@ public class HBaseClient {
             }
         } catch (Exception e) {
             logger.error("multi get from hbase error. table:[{}], rowKeys:{}, column:[{}:{}]", tableName, rowKeys, columnFamily, qualifier, e);
+            e.printStackTrace();
         }
         return result;
     }
@@ -179,15 +185,25 @@ public class HBaseClient {
     }
 
 
-    private Connection connect(String zkCluster) {
+    private Table tableOf(String tableName) throws IOException {
+        String t = this.namespace + ":" + tableName;
+        return this.conn.getTable(TableName.valueOf(t));
+    }
+
+    /**
+     * 创建连接
+     */
+    private Connection createConnect(String zkCluster) {
         Configuration conf = HBaseConfiguration.create();
         conf.set("hbase.zookeeper.quorum", zkCluster);
         conf.set("hbase.zookeeper.property.clientPort", "2181");
-        conf.set("hbase.client.pause", "50");
+        conf.set("hbase.client.ipc.pool.type", "RoundRobin");
+        conf.set("hbase.client.ipc.pool.size", "15");
         conf.set("hbase.client.retries.number", "3");
-        conf.set("hbase.rpc.timeout", "2000");
         conf.set("hbase.client.operation.timeout", "3000");
         conf.set("hbase.client.scanner.timeout.period", "10000");
+        conf.set("hbase.client.pause", "50");
+        conf.set("hbase.rpc.timeout", "2000");
         try {
             Connection conn = ConnectionFactory.createConnection(conf);
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
