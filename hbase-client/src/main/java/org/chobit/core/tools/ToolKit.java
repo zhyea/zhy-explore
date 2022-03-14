@@ -29,7 +29,7 @@ public final class ToolKit {
 
 
     public static String uuid() {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
     public static boolean isNotBlank(String str) {
