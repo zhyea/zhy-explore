@@ -1,0 +1,179 @@
+// Copyright (c) 2019 Tencent Inc.
+
+syntax = "proto2";
+
+package org.chobit.core.proto;
+
+option java_outer_classname = "RtaProtos";
+option go_package = "rta/protobuf/types/TencentRtaPb";
+
+message RtaRequest {
+  // 请求唯一标识
+  optional string id = 1;
+
+  // true表示探测网络延迟
+  optional bool is_ping = 2;
+
+  // true表示测试请求，广告不会被展示和计费
+  optional bool is_test = 3;
+
+  // Impression为高级功能，详见QA
+  message Impression {
+    // 该请求范围内，Impression唯一标识
+    optional string id = 1;
+
+    // 加密的广告位id
+    optional string placement_id = 2;
+  }
+  repeated Impression impressions = 4;
+
+  enum OperatingSystem {
+    OS_UNKNOWN = 0;
+    OS_IOS = 1;
+    OS_ANDROID = 2;
+    OS_WINDOWS = 3;
+    OS_SYMBIAN = 4;
+    OS_JAVA = 5;
+  }
+
+  message Device {
+    optional OperatingSystem os = 1;
+
+    // iOS设备的IDFA md5sum
+    optional string idfa_md5sum = 2;
+
+    // Android设备的IMEI md5sum
+    optional string imei_md5sum = 3;
+
+    // Android设备的Android ID
+    optional string android_id_md5sum = 4;
+
+    // 用户设备的mac地址
+    optional string mac_md5sum = 5;
+
+    // Android设备的oaid  md5sum
+    optional string oaid_md5sum = 6;
+
+    // 用户IP
+    optional string ip = 7;
+
+    // Android设备的oaid 原值
+    optional string oaid = 8;
+
+    enum DeviceIdTag {
+      IDFA_MD5_DOUBTFUL = 0;
+      IMEI_MD5_DOUBTFUL = 1;
+      ANDROIDID_MD5_DOUBTFUL = 2;
+      MAC_MD5_DOUBTFUL = 3;
+      OAID_MD5_DOUBTFUL = 4;
+      OAID_DOUBTFUL = 5;
+      QAID_DOUBTFUL = 6;
+    }
+    // 上述设备id是否可疑标志
+    repeated DeviceIdTag doubtful_ids_list = 9;
+
+    enum CacheDeviceIdType {
+      IDFA_MD5 = 0;
+      IMEI_MD5 = 1;
+      OAID = 2;
+      OAID_MD5 = 3;
+      ANDROIDID_MD5 = 4;
+      MAC_MD5 = 5;
+      NIL = 6;  // 所有设备号可疑或为空
+      QAID = 7;
+    }
+    // 本次请求作为缓存key的设备号类型
+    optional CacheDeviceIdType cached_deviceid_type = 10;
+
+    // 多版本QAID信息
+    message QaidInfo {
+      // QAID版本，同时区分QAID含义
+      optional uint32 version = 1;
+      // QAID值
+      optional string qaid = 2;
+      // 广协原始版本
+      optional string origin_version = 3;
+    }
+    repeated QaidInfo qaid_infos = 13;
+  }
+  optional Device device = 5;
+
+  // 流量分类，微信为21，其他流量需要联系腾讯产品开通，否则默认为0
+  optional uint64 siteset_id = 6;
+}
+
+message DynamicProductInfo {
+  // 商品库id
+  optional uint64 product_lib = 1;
+
+  message Product {
+    // 商品id
+    optional uint64 id = 1;
+
+    // 商品推荐的权重，取值范围[1, 100]，取值越高越重要，如果不传或者为0，按商品回复的顺序排序
+    optional uint32 priority = 2;
+
+    // 用户和商品产生互动的时间，unix时间戳，如果不传，则以回复RTA时间为准
+    optional uint64 timestamp = 3;
+  }
+  // 商品信息
+  repeated Product products = 2;
+}
+
+
+message RtaResponse {
+  // 来自RtaRequest.id
+  optional string request_id = 1;
+
+  // 返回的状态码，0为选择该流量，非0为过滤，该状态码落地日志，方便定位问题
+  // 如果有impression，则优先看impression的回复
+  optional uint32 code = 2;
+
+  // Impression为高级功能，详见QA
+  message Impression {
+    // RtaRequest.Impression.id
+    optional string id = 1;
+
+    // impression级状态码，0为选择该流量，非0为过滤，该状态码落地日志，方便定位问题
+    optional uint32 code = 2;
+
+    // 指定禁止的广告主账号
+    repeated uint64 exclude_advertiser_id = 3 [packed = true];
+
+    // 自定义的策略，当code为0选择该流量时，只选择包含该策略的所有广告主
+    repeated string out_target_id = 5;
+  }
+  repeated Impression impressions = 3;
+
+  // 收到RtaRequest至发送完RtaResponse的用时，单位:毫秒
+  optional int32 processing_time_ms = 4;
+
+  // 指定禁止的广告主账号，如果有impression，则优先看impression的回复
+  repeated uint64 exclude_advertiser_id = 5 [packed = true];
+
+  // 实时指定对该设备的缓存时间，单位秒。
+  // 需提前开启缓存功能，该值需高于配置的缓存时间，且不得超过7天
+  optional uint32 response_cache_time = 7;
+
+  // 自定义策略，当code为0选择该流量时，只选择包含该策略的所有广告主，如果有impression，则优先看impression的回复
+  repeated string out_target_id = 10;
+
+  // 策略绑定信息
+  message TargetInfo {
+    // 自定义策略，和请求级out_target_id一致
+    optional string out_target_id = 1;
+
+    // 用户加权值，取值范围[1~10] 10个等级，超出该范围按空处理
+    optional int32 user_weight = 2;
+
+    // 广告主对该策略下的广告实时回复cpc价格（高于订单价格才有效）, 单位：分/次
+    optional uint32 cpc_price = 3;
+
+    // 针对同一用户，为指定的out_target_id分别推荐商品信息，优先级高于请求级推荐商品
+    repeated DynamicProductInfo dynamic_product_infos = 4;
+
+    // 广告主对该策略下的广告实时回复cpa目标价格, 单位：分/次
+    optional uint32 cpa_price = 5;
+  }
+  repeated TargetInfo target_infos = 12;
+}
