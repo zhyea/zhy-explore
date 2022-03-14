@@ -1,5 +1,5 @@
-# Protobuf-explore
+# JMeter-Explore
 
 
-Google Protobuf 使用记录
+JMeter Java API 使用记录
 
