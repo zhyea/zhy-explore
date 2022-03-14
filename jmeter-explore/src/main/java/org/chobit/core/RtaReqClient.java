@@ -1,6 +1,6 @@
 package org.chobit.core;
 
-import com.ke.bigdata.growth.model.Pair;
+import javafx.util.Pair;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
@@ -14,8 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.ke.bigdata.growth.utils.Strings.isNotBlank;
-import static com.ke.bigdata.growth.utils.Strings.toLong;
 
 public class RtaReqClient extends AbstractJavaSamplerClient {
 
@@ -70,13 +68,6 @@ public class RtaReqClient extends AbstractJavaSamplerClient {
         url = jsc.getParameter(NAME_URL);
 
         log.info("Url:{}, RtaIds: {}", url, str);
-
-        if (isNotBlank(str)) {
-            String[] arr = str.split(",");
-            for (String s : arr) {
-                rtaIds.add(toLong(s));
-            }
-        }
     }
 
 
@@ -94,11 +85,7 @@ public class RtaReqClient extends AbstractJavaSamplerClient {
         try {
             Pair<Integer, Long> pair = req.send(url, rtaIds);
             results.setResponseData(pair.toString(), StandardCharsets.UTF_8.name());
-            if (200 == pair.getKey()) {
-                results.setSuccessful(true);
-            } else {
-                results.setSuccessful(false);
-            }
+            results.setSuccessful(200 == pair.getKey());
         } catch (IOException e) {
             log.error("rta 请求出现异常", e);
             results.setResponseData("执行过程中出现异常", StandardCharsets.UTF_8.name());
