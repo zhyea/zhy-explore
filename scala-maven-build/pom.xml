@@ -14,7 +14,7 @@
     <properties>
         <spark.version>2.3.4</spark.version>
         <scala.version>2.13.1</scala.version>
-        <jackson.version>2.12.1</jackson.version>
+        <jackson.version>2.12.6.1</jackson.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
