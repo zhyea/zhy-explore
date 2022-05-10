@@ -6,3 +6,12 @@ server:
 spring:
   application:
     name: spring-boot-multi-redis
+
+redis:
+  first:
+    host: 127.0.0.1
+    port: 6300
+  second:
+    host: 127.0.0.2
+    port: 6300
+    password: zhyea.com

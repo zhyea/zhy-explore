@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RedisTest {
+public class LettuceClientTest {
 
     @Autowired
     @Qualifier("firstStringRedisTemplate")
@@ -28,6 +28,8 @@ public class RedisTest {
         System.out.println(firstRedisTemplate.opsForValue().get("site"));
         secondRedisTemplate.opsForValue().set("site", "zhyea.com");
         System.out.println(secondRedisTemplate.opsForValue().get("site"));
+        firstRedisTemplate.opsForValue().set("site", "");
+        secondRedisTemplate.opsForValue().set("site", "");
     }
 
 

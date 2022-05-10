@@ -5,13 +5,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 
 @Configuration
-public class RedisConnFactory {
+public class LettuceClientFactory {
 
     @Bean("firstRedisConfig")
     @ConfigurationProperties(prefix = "redis.first")
@@ -23,11 +24,7 @@ public class RedisConnFactory {
     @Primary
     @Bean("firstLettuceConnectionFactory")
     public LettuceConnectionFactory firstLettuceConnectionFactory(@Qualifier("firstRedisConfig") RedisConfig config) {
-        RedisStandaloneConfiguration cfg = new RedisStandaloneConfiguration(config.getHost(), config.getPort());
-        if (StringUtils.hasLength(config.getPassword())) {
-            cfg.setPassword(config.getPassword());
-        }
-        return new LettuceConnectionFactory(cfg);
+        return newLettuceClusterConn(config);
     }
 
     @Bean("firstStringRedisTemplate")
@@ -45,16 +42,27 @@ public class RedisConnFactory {
 
     @Bean("secondLettuceConnectionFactory")
     public LettuceConnectionFactory secondLettuceConnectionFactory(@Qualifier("secondRedisConfig") RedisConfig config) {
-        RedisStandaloneConfiguration cfg = new RedisStandaloneConfiguration(config.getHost(), config.getPort());
-        if (StringUtils.hasLength(config.getPassword())) {
-            cfg.setPassword(config.getPassword());
-        }
-        return new LettuceConnectionFactory(cfg);
+        return newLettuceClusterConn(config);
     }
 
     @Bean("secondStringRedisTemplate")
     public StringRedisTemplate secondStringRedisTemplate(@Qualifier("secondLettuceConnectionFactory") LettuceConnectionFactory lettuceConnectionFactory) {
         return new StringRedisTemplate(lettuceConnectionFactory);
+    }
+
+
+    private LettuceConnectionFactory newLettuceClusterConn(RedisConfig config) {
+        if (config.isCluster()) {
+            RedisClusterConfiguration c = new RedisClusterConfiguration()
+                    .clusterNode(config.getHost(), config.getPort());
+            return new LettuceConnectionFactory(c);
+        } else {
+            RedisStandaloneConfiguration cfg = new RedisStandaloneConfiguration(config.getHost(), config.getPort());
+            if (StringUtils.hasLength(config.getPassword())) {
+                cfg.setPassword(config.getPassword());
+            }
+            return new LettuceConnectionFactory(cfg);
+        }
     }
 
 }
