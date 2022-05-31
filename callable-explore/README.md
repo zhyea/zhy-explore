@@ -1,4 +1,4 @@
 # Callable-explore
 
 
-ÓÃÓÚ²âÊÔjava `Callable` / `Future`½Ó¿ÚµÄÊ¹ÓÃ
+java `Callable` å’Œ `Future`ä½¿ç”¨
