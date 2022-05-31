@@ -1,0 +1,4 @@
+/dependency-reduced-pom.xml
+src/main/resources/
+*.idea
+*.iml

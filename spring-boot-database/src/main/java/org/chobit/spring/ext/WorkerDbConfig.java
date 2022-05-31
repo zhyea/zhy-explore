@@ -2,7 +2,6 @@ package org.chobit.spring.ext;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,7 +15,7 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = "org.chobit.spring.service.mapper.worker",
         sqlSessionFactoryRef = "workerSqlSessionFactory")
-public class WorkerDbConfig {
+public class WorkerDbConfig extends AbstractDbConfig {
 
 
     @Bean(name = "workerDataSource")
@@ -35,8 +34,6 @@ public class WorkerDbConfig {
     @Primary
     @Bean(name = "workerSqlSessionFactory")
     public SqlSessionFactory setSqlSessionFactory(@Qualifier("workerDataSource") DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(dataSource);
-        return bean.getObject();
+        return buildSqlSessionFactory(dataSource);
     }
 }

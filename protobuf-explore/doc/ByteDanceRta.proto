@@ -1,0 +1,362 @@
+/**
+Toutiao Rta protobuf message
+ */
+syntax = "proto3";
+
+package ad.rta.toutiao;
+
+option go_package = "growth.ke.com/rta/protobuf/types/ByteDanceRtaPb";
+
+import "google/protobuf/wrappers.proto";
+
+/**
+系统类型
+ */
+enum PlatformType {
+
+  PLATFORM_UNKNOWN = 0;
+
+  ANDROID = 1;
+
+  IOS = 2;
+}
+
+
+/**
+联合实验参数
+ */
+enum EnableStrategy{
+
+  DISABLE = 0;
+
+  ENABLE_DEFAULT = 1;
+
+  ENABLE_Type_2 = 2;
+  ENABLE_Type_3 = 3;
+  ENABLE_Type_4 = 4;
+  ENABLE_Type_5 = 5;
+  ENABLE_Type_6 = 6;
+  ENABLE_Type_7 = 7;
+  ENABLE_Type_8 = 8;
+  ENABLE_Type_9 = 9;
+  ENABLE_Type_10 = 10;
+}
+
+
+/**
+设备类型
+ */
+enum DeviceType {
+
+  //未知
+  DEVICE_UNKNOWN = 0;
+
+  //手机
+  PHONE = 1;
+
+  //平板
+  TABLET = 2;
+}
+
+
+/**
+设备相关字段
+ */
+message Device{
+
+  // MD5后的IMEI
+  string imei_md5 = 1;
+
+  // MD5后的AndroidId
+  string android_id_md5 = 2;
+
+  // oaid原值
+  string oaid = 3;
+
+  // idfa原值
+  string idfa = 4;
+
+  // 加密后的imei，将逐步替换MD5 imei
+  string imei_secure_id = 5;
+
+}
+
+
+/**
+设备号类型
+ */
+enum DidType{
+
+  IMEI = 0;
+
+  IMEI_MD5 = 1;
+
+  ANDROID_ID = 2;
+
+  ANDROID_ID_MD5 = 3;
+
+  IDFA = 4;
+
+  IDFA_MD5 = 5;
+
+  OAID = 6;
+
+  OAID_MD5 = 7;
+}
+
+
+/**
+行业信息
+ */
+message Industry{
+
+  // 一级行业，枚举
+  int64 first_industry = 1;
+
+  // 二级行业，枚举
+  int64 second_industry = 2;
+
+}
+
+
+/**
+地理位置信息
+ */
+message Geo{
+
+  // 城市，枚举
+  int64 city = 1;
+
+  // 经度，精确到小数点后2位，火星坐标系
+  double lat = 2;
+
+  // 维度，精确到小数点后2位，火星坐标系
+  double lon = 3;
+}
+
+
+/**
+性别类型
+ */
+enum GenderType {
+
+  GENDER_UNKNOWN = 0;
+
+  MALE = 1;
+
+  FEMALE = 2;
+}
+
+
+/**
+RTA 请求
+ */
+message RtaRequest{
+
+  //操作系统
+  PlatformType platform = 1;
+
+  //设备号， 安卓为imei，ios为idfa，站内必传字段
+  string did = 2;
+
+  //广告位ID
+  int64 slot_id = 3;
+
+  //年龄段   0(<18), 1(18~23), 2(24~30), 3(31~40) 4(41~49), 5(>50)
+  int32 age = 4;
+
+  //性别
+  GenderType gender = 5;
+
+  //城市
+  string city = 6;
+
+  //应该是机型？
+  string model = 7;
+
+  //安装包名列表,只包含关注包名
+  repeated string install_list = 8;
+
+  //did_type:imei,imei_md5,idfa,Android id，站内必传字段
+  DidType did_type = 9;
+
+  //实验分组 1~n
+  int32 experiment = 10;
+
+  //设备类型
+  DeviceType device_type = 11;
+
+  //请求ID，站内必传字段
+  string req_id = 12;
+
+  //来源，站内必传字段
+  string source = 13;
+
+  //RTA ID集合，站内必传字段
+  repeated int64 rta_ids = 14;
+
+  //联合实验参数，站内必传字段
+  EnableStrategy enable_strategy = 15;
+
+  //联运使用
+  int64 tt_did = 16;
+
+  //新版设备信息
+  Device device = 17;
+
+  //媒体的行业信息
+  Industry industry = 18;
+
+  //地理位置信息
+  Geo geo = 19;
+
+  //设备型号
+  string DeviceModel = 20;
+}
+
+
+
+/**
+用户信息
+ */
+message UserInfo {
+
+  /**
+  用户类型
+   */
+  enum UserType {
+
+    EMPTY = 0;
+
+    PRICE_COEF = 1;
+
+    DEFAULT = 2;
+
+    //穿山甲使用
+    RTA_BID = 7;
+
+    //穿山甲使用
+    BOOST_COEF = 8;
+  }
+
+  /**
+  商品类型
+   */
+  enum PidType {
+    PidType_0 = 0;
+    PidType_1 = 1;
+    PidType_2 = 2;
+    PidType_3 = 3;
+    PidType_4 = 4;
+  }
+
+  /**
+  行为类型
+   */
+  enum ActionType {
+
+    //待补充，尽量与站内转化行为一致
+    ACTION_DEFAULT = 0;
+
+    //app内下单
+    IN_APP_ORDER = 20;
+
+    //有效获客
+    CUSTOMER_EFFECTIVE = 26;
+
+    //授信
+    LOAN_CREDIT = 105;
+  }
+
+  /**
+  用户质量分
+   */
+  message UserQuality {
+
+    //对用户的分类，与rta广告的分类相对应
+    UserType user_type = 1;
+
+    double quality = 2;
+  };
+
+
+  /**
+  行为质量分
+   */
+  message ActionQuality {
+
+    //对用户转化行为的分类
+    ActionType action_type = 1;
+
+    //value range [0, 1]
+    double quality = 2;
+  };
+
+
+  /**
+  商品列表
+   */
+  message PidList {
+
+    //商品列表的重要程度，0代表最重要
+    PidType pid_type = 1;
+
+    //商品列表
+    repeated int64 pids = 2;
+
+    //商品库id
+    int64 platform_id = 3;
+  }
+
+  //是否对这个用户感兴趣，标识是否投放用的字段，站内必传
+  bool is_interested = 1;
+
+  //对用户的一些评判
+  repeated UserQuality user_scores = 2;
+
+  //rit_id，站内必传
+  int64 rta_id = 3;
+
+  //RTA+DPA 相关的数据
+  repeated PidList pid_lists = 4;
+
+  //对用户转化行为的一些评判
+  repeated ActionQuality action_scores = 5;
+
+  //用于广告定向投放的advId列表
+  repeated int64 target_advertiser_ids = 6;
+}
+
+
+/**
+RTA 响应
+ */
+message RtaResponse {
+
+  //0代表成功，其他表示错误，站内必传字段
+  int32 status_code = 1;
+
+  //0表示参竞，1表示设备不参竞，2表示slot_id不参竞，结合缓存时长使用
+  google.protobuf.Int32Value bid_type = 9;
+
+  //缓存时长：小时
+  int32 cache_duration = 5;
+
+  //站内必传字段
+  repeated UserInfo user_infos = 7;
+
+  //请求ID
+  string req_id = 6;
+
+  //时间戳ms
+  int64 ts = 8;
+
+  //禁止投放的账户ID
+  repeated int64 exclude_advertiser_id = 2 [packed = true];
+
+  //禁止投放的广告ID
+  repeated int64 exclude_ad_id = 3 [packed = true];
+
+
+  int64 rta_bid = 4;
+}
