@@ -1,15 +1,18 @@
 package org.chobit.core;
 
 import org.bouncycastle.crypto.BufferedBlockCipher;
-import org.bouncycastle.crypto.engines.AESEngine;
-import org.bouncycastle.crypto.modes.CBCBlockCipher;
+import org.bouncycastle.crypto.engines.DESedeEngine;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.bouncycastle.crypto.params.KeyParameter;
 import org.bouncycastle.util.encoders.Hex;
 
 import java.nio.charset.StandardCharsets;
 
-public final class AES {
+/**
+ * @author zhangrui137
+ */
+public final class DES {
+    
 
     /**
      * 执行加密
@@ -38,7 +41,6 @@ public final class AES {
         return new String(bytes);
     }
 
-
     private static byte[] handle(byte[] bytes, String secretKey, boolean forEncrypt) {
         try {
             BufferedBlockCipher cipher = getCipher(secretKey, forEncrypt);
@@ -56,11 +58,10 @@ public final class AES {
 
     private static BufferedBlockCipher getCipher(String secretKey, boolean forEncrypt) {
         byte[] bytesKey = MD5.encode(secretKey);
-        BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(new CBCBlockCipher(new AESEngine()));
+        BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(new DESedeEngine());
         cipher.init(forEncrypt, new KeyParameter(bytesKey));
         return cipher;
     }
 
-    private AES() {
-    }
+
 }

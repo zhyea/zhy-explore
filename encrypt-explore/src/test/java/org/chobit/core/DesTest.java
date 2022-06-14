@@ -1,9 +1,11 @@
 package org.chobit.core;
 
-
 import org.junit.Test;
 
-public class AesTest {
+/**
+ * @author zhangrui137
+ */
+public class DesTest {
 
 
     @Test
@@ -11,12 +13,11 @@ public class AesTest {
         String salt = "MayTheForceBeWithYou";
         String str = "1";
 
-        String encrypted = AES.encrypt(str, salt);
+        String encrypted = DES.encrypt(str, salt);
         System.out.println(encrypted);
 
-        String src = AES.decrypt(encrypted, salt);
+        String src = DES.decrypt(encrypted, salt);
         System.out.println(src);
     }
-
 
 }
