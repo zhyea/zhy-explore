@@ -7,6 +7,6 @@ spring:
   application:
     name: spring-boot-test
   cache:
-    type: CAFFEINE
+    type: SIMPLE
     caffeine:
       spec: initialCapacity=1048576,maximumSize=1073741824,expireAfterAccess=10m

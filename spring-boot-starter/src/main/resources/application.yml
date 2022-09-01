@@ -1,0 +1,9 @@
+debug: false
+
+spring:
+  application:
+    name: spring-boot-starter
+  cache:
+    type: SIMPLE
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration
