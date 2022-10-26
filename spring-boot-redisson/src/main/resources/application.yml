@@ -6,3 +6,7 @@ server:
 spring:
   application:
     name: spring-boot-redisson
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379

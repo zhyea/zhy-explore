@@ -28,4 +28,10 @@ public class MyApi {
         return id;
     }
 
+    @GetMapping("/hello/{name}")
+    public boolean hello(@PathVariable("name") String name) {
+        myService.hello(name);
+        return true;
+    }
+
 }
