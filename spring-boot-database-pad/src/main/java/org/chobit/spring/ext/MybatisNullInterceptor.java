@@ -2,6 +2,7 @@ package org.chobit.spring.ext;
 
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +33,19 @@ public class MybatisNullInterceptor implements Interceptor {
             padNullFields(parameter);
         }
 
+
+        SqlCommandType type = ms.getSqlCommandType();
+        String sql = ms.getBoundSql(parameter).getSql();
+
+        System.out.println(type);
+        System.out.println(sql);
+
         Executor executor = (Executor) invocation.getTarget();
-        return executor.update(ms, parameter);
+        Object result = executor.update(ms, parameter);
+
+        System.out.println(result);
+
+        return result;
     }
 
     @Override
