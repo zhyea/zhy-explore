@@ -44,7 +44,11 @@
             <artifactId>redlock-spring-boot-helper</artifactId>
             <version>0.0.1-snapshot</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.chobit.common</groupId>
+            <artifactId>zhy-utils</artifactId>
+            <version>0.1.3.2</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
