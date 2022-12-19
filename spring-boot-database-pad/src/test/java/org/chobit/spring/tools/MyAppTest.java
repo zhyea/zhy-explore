@@ -19,7 +19,9 @@ public class MyAppTest {
     @Test
     public void getWorker() {
         workerService.create();
-        workerService.insert(null);
+        System.out.println("=================>>>>> insert start");
+        workerService.insert("robin");
+        System.out.println("=================>>>>> insert end");
         Worker worker = workerService.get(1);
         System.out.println(worker);
     }
