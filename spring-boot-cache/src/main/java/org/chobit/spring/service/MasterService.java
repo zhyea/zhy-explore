@@ -25,7 +25,7 @@ public class MasterService {
         workers.add(new Worker("HanMeimei", 16));
     }
 
-    @Cacheable(key = "'get'+#id")
+    @Cacheable(key = "'get' + #id")
     public Worker get(int id) {
         System.out.println("------------------------" + id);
         return workers.get(id - 1);
