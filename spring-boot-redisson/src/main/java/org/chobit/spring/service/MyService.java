@@ -3,6 +3,7 @@ package org.chobit.spring.service;
 import org.chobit.spring.redlock.RedLock;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class MyService {
 
 
-    @RedLock(key = "zhy")
+    @RedLock(key = "'zhy'")
     public void execute() {
         try {
             TimeUnit.SECONDS.sleep(3L);
@@ -22,9 +23,9 @@ public class MyService {
     }
 
 
-    @RedLock(key = "'zhy:' + #name")
-    public void hello(String name) {
-        System.out.println("hello " + name + "!");
+    @RedLock(key = "#date.getTime()")
+    public void hello(Date date) {
+        System.out.println("hello " + date + "!");
     }
 
 

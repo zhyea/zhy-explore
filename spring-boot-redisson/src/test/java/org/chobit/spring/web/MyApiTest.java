@@ -19,4 +19,11 @@ public class MyApiTest extends ApiTestBase {
     }
 
 
+    @Test
+    public void hello() {
+        Boolean i = testGet("/hello/robin", boolean.class);
+        Assertions.assertTrue(i);
+    }
+
+
 }

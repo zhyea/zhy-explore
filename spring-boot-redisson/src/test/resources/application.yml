@@ -6,3 +6,8 @@ server:
 spring:
   application:
     name: spring-boot-test2
+  redis:
+    database: 0
+    host: 10.80.110.5
+    port: 6379
+    password: hOmp0gk9vOZa

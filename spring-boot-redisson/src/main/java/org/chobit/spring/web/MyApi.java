@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @author rui.zhang
@@ -30,7 +31,7 @@ public class MyApi {
 
     @GetMapping("/hello/{name}")
     public boolean hello(@PathVariable("name") String name) {
-        myService.hello(name);
+        myService.hello(new Date());
         return true;
     }
 
