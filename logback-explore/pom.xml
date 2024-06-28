@@ -16,7 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <!-- dependency version variable -->
-        <logback.version>1.4.11</logback.version>
+        <logback.version>1.4.12</logback.version>
         <slf4j.version>2.0.9</slf4j.version>
     </properties>
 
