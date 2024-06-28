@@ -1,5 +1,7 @@
 package org.chobit.spring.entity;
 
+import org.chobit.common.utils.JsonKit;
+
 import java.util.Objects;
 
 /**
@@ -58,10 +60,6 @@ public class Worker {
 
     @Override
     public String toString() {
-        return "Worker{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+        return JsonKit.toJson(this);
     }
 }

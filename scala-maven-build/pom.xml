@@ -13,8 +13,8 @@
 
     <properties>
         <spark.version>2.3.4</spark.version>
-        <scala.version>2.13.9</scala.version>
-        <jackson.version>2.12.1</jackson.version>
+        <scala.version>2.13.1</scala.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -116,7 +116,7 @@
             <dependency>
                 <groupId>commons-net</groupId>
                 <artifactId>commons-net</artifactId>
-                <version>3.6</version>
+                <version>3.9.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>

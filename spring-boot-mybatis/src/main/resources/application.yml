@@ -1,0 +1,35 @@
+debug: false
+
+server:
+  port: 8087
+
+spring:
+  application:
+    name: spring-boot-database
+  sql:
+    init:
+      mode: EMBEDDED
+      schema-locations: classpath:/database/schema_h2.sql
+      data-locations: classpath:/database/data_h2.sql
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test-db;DB_CLOSE_ON_EXIT=TRUE
+    dbcp2:
+      validation-query: SELECT 1
+      pool-prepared-statements: true
+  h2:
+    console:
+      enabled: true
+      path: /db-h2
+      settings:
+        web-allow-others: true
+        trace: true
+
+
+mybatis-plus:
+  configuration:
+    mapUnderscoreToCamelCase: true
+  global-config:
+    banner: off
+  # typeHandlersPackage: org.chobit.spring.ext.mybatis.type,

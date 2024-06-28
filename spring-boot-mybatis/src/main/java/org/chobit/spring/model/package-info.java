@@ -1,0 +1,1 @@
+package org.chobit.spring.model;

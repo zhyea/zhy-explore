@@ -25,6 +25,7 @@ public interface WorkerMapper {
     /**
      * 写入数据
      *
+     * @param worker Worker实例
      * @return 写入行数
      */
     @Insert({
@@ -32,7 +33,36 @@ public interface WorkerMapper {
             "values",
             "(#{name}, #{age})"
     })
+    @Options(useGeneratedKeys = true)
     boolean insert(Worker worker);
+
+
+    /**
+     * 更新年龄
+     *
+     * @param id  记录ID
+     * @param age 年龄
+     * @return 是否更新成功
+     */
+    @Update({
+            "update worker set age=#{age}",
+            "where id=#{id}"
+    })
+    boolean updateAge(@Param("id") int id, @Param("age") int age);
+
+
+    /**
+     * 更新姓名信息
+     *
+     * @param id   记录ID
+     * @param name 姓名
+     * @return 是否更新成功
+     */
+    @Update({
+            "update worker set name=#{name}",
+            "where id=#{id}"
+    })
+    boolean updateName(@Param("id") int id, @Param("name") String name);
 
 
     /**

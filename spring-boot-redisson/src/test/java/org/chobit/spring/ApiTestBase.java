@@ -1,14 +1,15 @@
 package org.chobit.spring;
 
-import org.chobit.spring.model.ResultWrapper;
-import org.junit.Assert;
+import org.chobit.common.model.ResultWrapper;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.chobit.spring.tools.JsonUtils.fromJson;
-import static org.chobit.spring.tools.JsonUtils.toJson;
+import static org.chobit.common.utils.JsonKit.fromJson;
+import static org.chobit.common.utils.JsonKit.toJson;
+
 
 public abstract class ApiTestBase extends TestBase {
 
@@ -46,10 +47,10 @@ public abstract class ApiTestBase extends TestBase {
     private Object getResponse(ResultWrapper wrapper) {
         System.out.println(toJson(wrapper));
 
-        Assert.assertNotNull(wrapper);
-        Assert.assertEquals(HttpStatus.OK.value(), wrapper.getCode());
+        Assertions.assertNotNull(wrapper);
+        Assertions.assertEquals(HttpStatus.OK.value(), wrapper.getCode());
 
-        return null == wrapper.getResult() ? "" : wrapper.getResult();
+        return null == wrapper.getContent() ? "" : wrapper.getContent();
     }
 
 
