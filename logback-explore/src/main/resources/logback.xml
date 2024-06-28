@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- scan属性未true时，如果配置文档发生改变将会进行重新加载 -->
+<!-- scanPeriod属性设置监测配置文件修改的时间间隔，默认单位为毫秒，在scan为true时才生效 -->
+<!-- debug属性如果为true时，会打印出logback内部的日志信息 -->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <!-- 定义参数常量 -->
+    <!-- 日志级别：TRACE<DEBUG<INFO<WARN<ERROR，其中常用的是DEBUG、INFO和ERROR -->
+    <property name="log.level" value="debug"/>
+
+    <!-- 文件保留时间 -->
+    <property name="log.maxHistory" value="30"/>
+
+
+    <!-- 用于说明输出介质，此处说明控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 类似于layout，除了将时间转化为数组，还会将转换后的数组输出到相应的文件中 -->
+        <encoder>
+            <!-- 定义日志的输出格式 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 特殊的logger, 根logger -->
+    <root lever="info">
+        <!-- 指定默认的日志输出 -->
+        <appender-ref ref="console"/>
+    </root>
+
+</configuration>
