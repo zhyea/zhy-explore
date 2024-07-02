@@ -3,14 +3,8 @@ package org.chobit.spring.model.request;
 import lombok.Data;
 
 @Data
-public class ModifyIdNoRequest {
-
-
-
-    private String staffCode;
-
+public class IdentityNoRequest {
 
     private String idNo;
-
 
 }

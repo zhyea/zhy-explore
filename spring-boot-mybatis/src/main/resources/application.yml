@@ -30,6 +30,8 @@ spring:
 mybatis-plus:
   configuration:
     mapUnderscoreToCamelCase: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     banner: off
+  mapper-locations: classpath*:mappers/**/*.xml
   # typeHandlersPackage: org.chobit.spring.ext.mybatis.type,
