@@ -29,8 +29,8 @@
         </dependency>
         <dependency>
             <groupId>org.chobit.spring</groupId>
-            <artifactId>zhy-spring-boot-starter</artifactId>
-            <version>0.0.1.1</version>
+            <artifactId>zhy-spring-boot-autoconfigure</artifactId>
+            <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

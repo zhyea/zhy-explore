@@ -1,10 +1,10 @@
 package org.chobit.spring.api;
 
+import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
 import org.chobit.spring.model.entity.StaffEntity;
 import org.chobit.spring.model.request.IdNoModifyRequest;
 import org.chobit.spring.model.request.IdentityNoRequest;
 import org.chobit.spring.model.request.StaffAddRequest;
-import org.chobit.spring.rw.ResponseWrapper;
 import org.chobit.spring.service.StaffService;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +49,4 @@ public class StaffController {
     public StaffEntity getByIdNo(@RequestBody IdentityNoRequest req) {
         return staffService.getByIdNo(req.getIdNo());
     }
-
-
 }
