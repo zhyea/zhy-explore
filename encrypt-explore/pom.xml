@@ -24,6 +24,11 @@
             <version>1.70</version>
         </dependency>
         <dependency>
+            <groupId>com.jiduauto.isc</groupId>
+            <artifactId>secure-data-sdk</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>RELEASE</version>
