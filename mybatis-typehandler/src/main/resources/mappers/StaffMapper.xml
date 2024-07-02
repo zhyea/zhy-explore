@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.chobit.spring.service.mapper.StaffMapper">
+
+
+    <resultMap id="StaffResultMap" type="org.chobit.spring.model.entity.StaffEntity">
+        <result column="identity_no" property="identityNo"
+                typeHandler="org.chobit.spring.ext.mybatis.type.DlpTypeHandler"/>
+    </resultMap>
+
+
+    <select id="findAll" resultMap="StaffResultMap">
+        select *
+        from staff
+    </select>
+
+
+    <update id="updateByStaffCode">
+        update staff set
+        identity_no=#{idNo, typeHandler=org.chobit.spring.ext.mybatis.type.DlpTypeHandler}
+        where staff_code=#{staffCode}
+    </update>
+
+
+    <select id="getByIdentityNo" resultMap="StaffResultMap">
+        select * from staff
+        where identity_no=#{idNo, typeHandler=org.chobit.spring.ext.mybatis.type.DlpTypeHandler}
+    </select>
+
+
+    <insert id="addStaff">
+        insert into staff (name, age, gender, identity_no, staff_code)
+        values
+        (
+            #{item.name}, #{item.age}, #{item.gender},
+            #{item.identityNo, typeHandler=org.chobit.spring.ext.mybatis.type.DlpTypeHandler},
+            #{item.staffCode}
+        )
+    </insert>
+
+</mapper>
