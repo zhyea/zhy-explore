@@ -2,12 +2,14 @@ package org.chobit.spring.verifier;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.chobit.commons.concurrent.Threads;
 import org.chobit.spring.autoconfigure.trace.TraceClew;
 import org.chobit.spring.tools.BeanKit;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
@@ -26,6 +28,9 @@ public class TraceClewVerifier {
                 proxy.subRun();
             });
         }
+
+        Threads.sleep(TimeUnit.SECONDS, 1L);
+        logger.info("trace clew verifier end ...");
     }
 
 

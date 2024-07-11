@@ -15,6 +15,7 @@ public class TraceClewVerifierTest extends TestBase {
     @Test
     public void start() {
         verifier.start();
+        verifier.start();
     }
 
 }
