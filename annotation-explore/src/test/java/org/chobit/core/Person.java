@@ -1,6 +1,6 @@
 package org.chobit.core;
 
-@ToJsonString
+//@ToJsonString
 public class Person {
 
 
