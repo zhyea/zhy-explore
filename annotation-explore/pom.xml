@@ -8,21 +8,29 @@
 
     <groupId>org.chobit.core</groupId>
     <artifactId>annotation-explore</artifactId>
-    <version>0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <version>0.0.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>lombok-ext</module>
+        <module>sample</module>
+    </modules>
 
     <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.chobit.core</groupId>
-            <artifactId>lombok-ext</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.chobit.core</groupId>
+                <artifactId>lombok-ext</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -30,13 +38,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                    <!-- 不加这一句编译会报找不到 processor 的异常-->
-                    <proc>none</proc>
-                </configuration>
             </plugin>
         </plugins>
     </build>
