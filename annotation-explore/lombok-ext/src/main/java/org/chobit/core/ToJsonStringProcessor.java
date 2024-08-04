@@ -1,7 +1,6 @@
 package org.chobit.core;
 
 
-import com.google.auto.service.AutoService;
 import com.sun.source.util.Trees;
 import com.sun.tools.javac.api.JavacTrees;
 import com.sun.tools.javac.code.Flags;
@@ -21,7 +20,6 @@ import java.util.Set;
 /**
  * @author robin
  */
-@AutoService(Processor.class)
 @SupportedAnnotationTypes({"org.chobit.core.ToJsonString"})
 public class ToJsonStringProcessor extends AbstractProcessor {
 
@@ -60,7 +58,9 @@ public class ToJsonStringProcessor extends AbstractProcessor {
 		Set<TypeElement> typeElements = ElementFilter.typesIn(roundEnv.getElementsAnnotatedWith(ToJsonString.class));
 
 		for (TypeElement ele : typeElements) {
-			this.makeToStringMethod(ele);
+
+			messager.printMessage(Diagnostic.Kind.WARNING, "=======================process finished:" + ele);
+			//this.makeToStringMethod(ele);
 		}
 
 		messager.printMessage(Diagnostic.Kind.WARNING, "=======================process finished");
