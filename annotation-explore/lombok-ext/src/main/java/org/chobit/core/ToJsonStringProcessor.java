@@ -20,7 +20,7 @@ import java.util.Set;
 /**
  * @author robin
  */
-@SupportedAnnotationTypes({"org.chobit.core.ToJsonString"})
+//@SupportedAnnotationTypes({"org.chobit.core.ToJsonString"})
 public class ToJsonStringProcessor extends AbstractProcessor {
 
 
