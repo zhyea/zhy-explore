@@ -1,4 +1,4 @@
-package org.chobit.core;
+package org.chobit.apt;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.databind.ObjectMapper;

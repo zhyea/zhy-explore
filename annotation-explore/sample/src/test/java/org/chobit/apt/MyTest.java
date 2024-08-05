@@ -1,4 +1,6 @@
-package org.chobit.core;
+package org.chobit.apt;
+
+import org.chobit.core.Person;
 
 public class MyTest {
 

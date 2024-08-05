@@ -1,4 +1,4 @@
-package org.chobit.core;
+package org.chobit.apt;
 
 
 import com.sun.source.util.Trees;

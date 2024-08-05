@@ -1,4 +1,4 @@
-package org.chobit.core;
+package org.chobit.apt;
 
 
 import com.sun.source.util.Trees;
@@ -62,7 +62,13 @@ public class HelloProcessor extends AbstractProcessor {
 
 	private void addHelloMethod(JCClassDecl classDecl) {
 
-		JCModifiers modifiers = treeMaker.Modifiers(Flags.PUBLIC);
+		JCExpression importExp = getClassExpression(JsonStringSerializer.class.getName());
+		treeMaker.Import(importExp, false);
+
+		JCExpression annoExp = getClassExpression(Override.class.getName());
+		JCAnnotation overrideAnno = treeMaker.Annotation(annoExp, List.nil());
+		JCModifiers modifiers = treeMaker.Modifiers(Flags.PUBLIC, List.of(overrideAnno));
+
 		JCTree.JCExpression returnType = getClassExpression(String.class.getName());
 		List<JCVariableDecl> parameters = List.nil();
 		List<JCTypeParameter> generics = List.nil();
@@ -70,13 +76,9 @@ public class HelloProcessor extends AbstractProcessor {
 		List<JCExpression> throwz = List.nil();
 		JCBlock methodBody = makeHelloBody();
 
-		JCExpression annoExp = getClassExpression(Override.class.getName());
-		JCAnnotation overrideAnno = treeMaker.Annotation(annoExp, List.nil());
-
 		JCMethodDecl helloMethodDecl =
 				treeMaker.MethodDef(modifiers, methodName, returnType, generics, parameters, throwz,
 						methodBody, null);
-		helloMethodDecl.mods.annotations.append(overrideAnno);
 
 		classDecl.defs = classDecl.defs.append(helloMethodDecl);
 

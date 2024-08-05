@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.chobit.core</groupId>
+        <groupId>apt</groupId>
         <artifactId>annotation-explore</artifactId>
         <version>0.0.2-SNAPSHOT</version>
     </parent>
@@ -19,8 +19,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.chobit.core</groupId>
+            <groupId>apt</groupId>
             <artifactId>lombok-ext</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker</artifactId>
+            <version>3.46.0</version>
         </dependency>
     </dependencies>
 
