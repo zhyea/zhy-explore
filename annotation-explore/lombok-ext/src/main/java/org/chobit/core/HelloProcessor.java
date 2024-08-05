@@ -70,11 +70,16 @@ public class HelloProcessor extends AbstractProcessor {
 		List<JCExpression> throwz = List.nil();
 		JCBlock methodBody = makeHelloBody();
 
+		JCExpression annoExp = getClassExpression(Override.class.getName());
+		JCAnnotation overrideAnno = treeMaker.Annotation(annoExp, List.nil());
+
 		JCMethodDecl helloMethodDecl =
 				treeMaker.MethodDef(modifiers, methodName, returnType, generics, parameters, throwz,
 						methodBody, null);
+		helloMethodDecl.mods.annotations.append(overrideAnno);
 
 		classDecl.defs = classDecl.defs.append(helloMethodDecl);
+
 	}
 
 	private JCBlock makeHelloBody() {
