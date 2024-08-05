@@ -19,8 +19,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>apt</groupId>
+            <groupId>orgt.chobit.apt</groupId>
             <artifactId>lombok-ext</artifactId>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.checkerframework</groupId>
