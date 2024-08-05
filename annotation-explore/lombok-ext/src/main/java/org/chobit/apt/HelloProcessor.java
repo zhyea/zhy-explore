@@ -31,7 +31,7 @@ import static com.sun.tools.javac.tree.JCTree.*;
  */
 public class HelloProcessor extends AbstractProcessor {
     //region Fields
-    private Trees mTrees;
+    private Trees trees;
     private TreeMaker treeMaker;
     private Names names;
     private Messager messager;
@@ -59,7 +59,7 @@ public class HelloProcessor extends AbstractProcessor {
 
             Context context = ((JavacProcessingEnvironment) processingEnv).getContext();
 
-            this.mTrees = JavacTrees.instance(context);
+            this.trees = JavacTrees.instance(context);
             this.treeMaker = TreeMaker.instance(context);
             this.names = Names.instance(context);
         }
@@ -70,7 +70,7 @@ public class HelloProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
-        if(null == mTrees){
+        if(null == trees){
             messager.printMessage(Diagnostic.Kind.WARNING, "=====================================================");
             return true;
         }
@@ -79,8 +79,8 @@ public class HelloProcessor extends AbstractProcessor {
         Set<? extends Element> elements = env.getElementsAnnotatedWith(ToJsonString.class);
 
         for (Element element : elements) {
-            JCClassDecl classDecl = (JCClassDecl) mTrees.getTree(element);
-            JCCompilationUnit compilationUnit = (JCCompilationUnit) mTrees.getPath(element).getCompilationUnit();
+            JCClassDecl classDecl = (JCClassDecl) trees.getTree(element);
+            JCCompilationUnit compilationUnit = (JCCompilationUnit) trees.getPath(element).getCompilationUnit();
 
             addHelloMethod(classDecl, compilationUnit);
         }
