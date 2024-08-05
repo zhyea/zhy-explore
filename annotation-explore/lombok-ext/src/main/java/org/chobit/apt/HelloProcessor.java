@@ -9,121 +9,176 @@ import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.*;
 
-import javax.annotation.processing.*;
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Messager;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import javax.tools.Diagnostic;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.sun.tools.javac.tree.JCTree.*;
-import static javax.lang.model.SourceVersion.RELEASE_6;
 
 /**
  * Created by Pietro Caselani
  * On 25/01/14
  * Hello
  */
-@SupportedAnnotationTypes("org.chobit.core.ToJsonString")
-@SupportedSourceVersion(RELEASE_6)
 public class HelloProcessor extends AbstractProcessor {
-	//region Fields
-	private Trees mTrees;
-	private TreeMaker treeMaker;
-	private Names names;
-	//endregion
+    //region Fields
+    private Trees mTrees;
+    private TreeMaker treeMaker;
+    private Names names;
+    private Messager messager;
+    //endregion
 
-	//region Processor
-	@Override
-	public synchronized void init(ProcessingEnvironment processingEnv) {
-		Context context = ((JavacProcessingEnvironment) processingEnv).getContext();
+    //region Processor
 
-		this.mTrees = JavacTrees.instance(context);
-		this.treeMaker = TreeMaker.instance(context);
-		this.names = Names.instance(context);
-
-		super.init(processingEnv);
-	}
-
-	@Override
-	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
-		Set<? extends Element> elements = env.getElementsAnnotatedWith(ToJsonString.class);
-
-		for (Element element : elements) {
-			JCClassDecl classDecl = (JCClassDecl) mTrees.getTree(element);
-
-			addHelloMethod(classDecl);
-		}
-
-		return true;
-	}
-	//endregion
-
-	//region Private
+    @Override
+    public Set<String> getSupportedAnnotationTypes() {
+        Set<String> result = new HashSet<>(1);
+        result.add(ToJsonString.class.getName());
+        return result;
+    }
 
 
-	private void addHelloMethod(JCClassDecl classDecl) {
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return SourceVersion.latestSupported();
+    }
 
-		JCExpression importExp = getClassExpression(JsonStringSerializer.class.getName());
-		treeMaker.Import(importExp, false);
+    @Override
+    public synchronized void init(ProcessingEnvironment processingEnv) {
 
-		JCExpression annoExp = getClassExpression(Override.class.getName());
-		JCAnnotation overrideAnno = treeMaker.Annotation(annoExp, List.nil());
-		JCModifiers modifiers = treeMaker.Modifiers(Flags.PUBLIC, List.of(overrideAnno));
+        if (processingEnv instanceof JavacProcessingEnvironment) {
 
-		JCTree.JCExpression returnType = getClassExpression(String.class.getName());
-		List<JCVariableDecl> parameters = List.nil();
-		List<JCTypeParameter> generics = List.nil();
-		Name methodName = getName("toString");
-		List<JCExpression> throwz = List.nil();
-		JCBlock methodBody = makeHelloBody();
+            Context context = ((JavacProcessingEnvironment) processingEnv).getContext();
 
-		JCMethodDecl helloMethodDecl =
-				treeMaker.MethodDef(modifiers, methodName, returnType, generics, parameters, throwz,
-						methodBody, null);
+            this.mTrees = JavacTrees.instance(context);
+            this.treeMaker = TreeMaker.instance(context);
+            this.names = Names.instance(context);
+        }
 
-		classDecl.defs = classDecl.defs.append(helloMethodDecl);
+        this.messager = processingEnv.getMessager();
+        super.init(processingEnv);
+    }
 
-	}
+    @Override
+    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
+        if(null == mTrees){
+            messager.printMessage(Diagnostic.Kind.WARNING, "=====================================================");
+            return true;
+        }
+        messager.printMessage(Diagnostic.Kind.WARNING, "=====================================================");
 
-	private JCBlock makeHelloBody() {
-		JCExpression printExpression = getMethodExpression(JsonStringSerializer.class.getName(), "toJson");
+        Set<? extends Element> elements = env.getElementsAnnotatedWith(ToJsonString.class);
 
-		List<JCExpression> printArgs = List.from(List.of(treeMaker.Ident(names.fromString("this"))));
+        for (Element element : elements) {
+            JCClassDecl classDecl = (JCClassDecl) mTrees.getTree(element);
+            JCCompilationUnit compilationUnit = (JCCompilationUnit) mTrees.getPath(element).getCompilationUnit();
 
-		printExpression = treeMaker.Apply(List.nil(), printExpression, printArgs);
+            addHelloMethod(classDecl, compilationUnit);
+        }
 
-		ListBuffer<JCTree.JCStatement> testStatement3 = new ListBuffer<>();
-		testStatement3.add(treeMaker.Return(printExpression));
-		List<JCStatement> statements = List.from(testStatement3);
+        return true;
+    }
+    //endregion
 
-		return treeMaker.Block(0, statements);
-	}
-
-	private Name getName(String string) {
-		return names.fromString(string);
-	}
-	//endregion
-
-
-	/**
-	 * 获取方法表达式
-	 */
-	private JCTree.JCExpression getMethodExpression(String className, String methodName) {
-		JCTree.JCExpression ident = getClassExpression(className);
-		return treeMaker.Select(ident, names.fromString(methodName));
-	}
+    //region Private
 
 
-	/**
-	 * 获取类表达式
-	 */
-	private JCTree.JCExpression getClassExpression(String className) {
-		String[] arr = className.split("\\.");
-		JCTree.JCExpression ident = treeMaker.Ident(names.fromString(arr[0]));
+    private void addHelloMethod(JCClassDecl classDecl, JCCompilationUnit compilationUnit) {
 
-		for (int i = 1; i < arr.length; i++) {
-			ident = treeMaker.Select(ident, names.fromString(arr[i]));
-		}
+        JCExpression importExp = getClassExpression(JsonStringSerializer.class.getName());
+        JCImport importVal = treeMaker.Import(importExp, false);
+        compilationUnit.defs.append(importVal);
 
-		return ident;
-	}
+        JCExpression annoExp = getClassExpression(Override.class.getName());
+        JCAnnotation overrideAnno = treeMaker.Annotation(annoExp, List.nil());
+        JCModifiers modifiers = treeMaker.Modifiers(Flags.PUBLIC, List.of(overrideAnno));
+
+        JCTree.JCExpression returnType = getClassExpression(String.class.getName());
+        List<JCVariableDecl> parameters = List.nil();
+        List<JCTypeParameter> generics = List.nil();
+        Name methodName = getName("toString");
+        List<JCExpression> throwz = List.nil();
+        JCBlock methodBody = makeHelloBody();
+
+        JCMethodDecl helloMethodDecl =
+                treeMaker.MethodDef(modifiers, methodName, returnType, generics, parameters, throwz,
+                        methodBody, null);
+
+        classDecl.defs = classDecl.defs.append(helloMethodDecl);
+
+    }
+
+    private JCBlock makeHelloBody() {
+        JCExpression printExpression = getMethodExpression(JsonStringSerializer.class.getName(), "toJson");
+
+        List<JCExpression> printArgs = List.from(List.of(treeMaker.Ident(names.fromString("this"))));
+
+        printExpression = treeMaker.Apply(List.nil(), printExpression, printArgs);
+
+        ListBuffer<JCTree.JCStatement> testStatement3 = new ListBuffer<>();
+        testStatement3.add(treeMaker.Return(printExpression));
+        List<JCStatement> statements = List.from(testStatement3);
+
+        return treeMaker.Block(0, statements);
+    }
+
+    private Name getName(String string) {
+        return names.fromString(string);
+    }
+    //endregion
+
+
+    /**
+     * 获取方法表达式
+     */
+    private JCTree.JCExpression getMethodExpression(String className, String methodName) {
+        JCTree.JCExpression ident = getClassExpression(className);
+        return treeMaker.Select(ident, names.fromString(methodName));
+    }
+
+
+    /**
+     * 获取类表达式
+     */
+    private JCTree.JCExpression getClassExpression(String className) {
+        String[] arr = className.split("\\.");
+        JCTree.JCExpression ident = treeMaker.Ident(names.fromString(arr[0]));
+
+        for (int i = 1; i < arr.length; i++) {
+            ident = treeMaker.Select(ident, names.fromString(arr[i]));
+        }
+
+        return ident;
+    }
+
+
+    private static int getJreVersion() {
+        String version = System.getProperty("java.version");
+
+        // Up to Java 8, from a version string like "1.8.whatever", extract "8".
+        if (version.startsWith("1.")) {
+            return Integer.parseInt(version.substring(2, 3));
+        }
+
+        // Since Java 9, from a version string like "11.0.1" or "11-ea" or "11u25", extract "11".
+        // The format is described at http://openjdk.org/jeps/223 .
+        Pattern newVersionPattern = Pattern.compile("^(\\d+).*$");
+        Matcher newVersionMatcher = newVersionPattern.matcher(version);
+        if (newVersionMatcher.matches()) {
+            String v = newVersionMatcher.group(1);
+            assert v != null : "@AssumeAssertion(nullness): inspection";
+            return Integer.parseInt(v);
+        }
+
+        throw new RuntimeException("Could not determine version from property java.version=" + version);
+    }
 }
