@@ -1,8 +1,10 @@
 package org.chobit.core;
 
 
-public class Student {
+import org.chobit.apt.Hello;
 
+@Hello
+public class Student {
 
 
     private String name;
@@ -13,9 +15,4 @@ public class Student {
 
     private int age;
 
-
-    @Override
-    public String toString() {
-        return org.chobit.apt.JsonStringSerializer.toJson(this);
-    }
 }

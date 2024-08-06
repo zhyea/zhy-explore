@@ -7,12 +7,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>apt</groupId>
+        <groupId>org.chobit.anno</groupId>
         <artifactId>annotation-explore</artifactId>
         <version>0.0.2-SNAPSHOT</version>
     </parent>
 
-    <artifactId>lombok-ext</artifactId>
+    <artifactId>apt</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

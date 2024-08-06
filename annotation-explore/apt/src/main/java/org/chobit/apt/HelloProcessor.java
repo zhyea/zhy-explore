@@ -17,6 +17,8 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -42,7 +44,7 @@ public class HelloProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> result = new HashSet<>(1);
-        result.add(ToJsonString.class.getName());
+        result.add(Hello.class.getName());
         return result;
     }
 
@@ -55,6 +57,8 @@ public class HelloProcessor extends AbstractProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
 
+        this.messager = processingEnv.getMessager();
+
         if (processingEnv instanceof JavacProcessingEnvironment) {
 
             Context context = ((JavacProcessingEnvironment) processingEnv).getContext();
@@ -62,21 +66,22 @@ public class HelloProcessor extends AbstractProcessor {
             this.trees = JavacTrees.instance(context);
             this.treeMaker = TreeMaker.instance(context);
             this.names = Names.instance(context);
+        } else if (Proxy.isProxyClass(processingEnv.getClass())) {
+            InvocationHandler invocationHandler = Proxy.getInvocationHandler(processingEnv);
+            messager.printMessage(Diagnostic.Kind.WARNING, "11111111  ========================== >>>" + invocationHandler);
         }
-
-        this.messager = processingEnv.getMessager();
         super.init(processingEnv);
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
-        if(null == trees){
+        if (null == trees) {
             messager.printMessage(Diagnostic.Kind.WARNING, "=====================================================");
             return true;
         }
         messager.printMessage(Diagnostic.Kind.WARNING, "=====================================================");
 
-        Set<? extends Element> elements = env.getElementsAnnotatedWith(ToJsonString.class);
+        Set<? extends Element> elements = env.getElementsAnnotatedWith(Hello.class);
 
         for (Element element : elements) {
             JCClassDecl classDecl = (JCClassDecl) trees.getTree(element);

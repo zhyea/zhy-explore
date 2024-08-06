@@ -1,34 +1,34 @@
 package org.chobit.core;
 
-import org.chobit.apt.ToJsonString;
+import org.chobit.apt.Hello;
 
 /**
  * 注解测试类
  *
  * @author robin
  */
-@ToJsonString
+@Hello
 public class Person {
 
 
-	private String name;
+    private String name;
 
-	private int age;
+    private int age;
 
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public int getAge() {
-		return age;
-	}
+    public int getAge() {
+        return age;
+    }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+    public void setAge(int age) {
+        this.age = age;
+    }
 }

@@ -6,12 +6,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>apt</groupId>
+    <groupId>org.chobit.anno</groupId>
     <artifactId>annotation-explore</artifactId>
     <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>lombok-ext</module>
+        <module>apt</module>
         <module>sample</module>
     </modules>
 
@@ -25,8 +25,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>apt</groupId>
-                <artifactId>lombok-ext</artifactId>
+                <groupId>org.chobit.anno</groupId>
+                <artifactId>apt</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
