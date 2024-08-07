@@ -18,9 +18,19 @@
     </properties>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.chobit.anno</groupId>
             <artifactId>apt</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker</artifactId>
+            <version>3.46.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chobit.apt</groupId>
+            <artifactId>lombok-ext</artifactId>
+            <version>0.0.4-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
