@@ -57,11 +57,11 @@ public class HelloProcessor extends AbstractProcessor {
 
         this.messager = processingEnv.getMessager();
 
+        this.trees = JavacTrees.instance(processingEnv);
+
         if (processingEnv instanceof JavacProcessingEnvironment) {
 
             Context context = ((JavacProcessingEnvironment) processingEnv).getContext();
-
-            this.trees = JavacTrees.instance(context);
             this.treeMaker = TreeMaker.instance(context);
             this.names = Names.instance(context);
         } else if (Proxy.isProxyClass(processingEnv.getClass())) {

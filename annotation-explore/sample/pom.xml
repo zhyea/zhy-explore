@@ -28,6 +28,16 @@
             <version>3.46.0</version>
         </dependency>
         <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.5.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.5.5.Final</version>
+        </dependency>
+        <dependency>
             <groupId>org.chobit.apt</groupId>
             <artifactId>lombok-ext</artifactId>
             <version>0.0.4-SNAPSHOT</version>
