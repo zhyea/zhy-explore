@@ -1,13 +1,10 @@
 package org.chobit.core;
 
-import org.chobit.apt.ToJson;
-
 /**
  * 注解测试类
  *
  * @author robin
  */
-@ToJson
 public class Person {
 
 
