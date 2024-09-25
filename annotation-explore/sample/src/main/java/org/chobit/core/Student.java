@@ -1,9 +1,9 @@
 package org.chobit.core;
 
 
-import org.chobit.apt.ToJsonString;
+import org.chobit.apt.ToJson;
 
-@ToJsonString
+@ToJson
 public class Student {
 
 
