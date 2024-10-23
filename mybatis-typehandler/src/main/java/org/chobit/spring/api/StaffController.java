@@ -45,6 +45,12 @@ public class StaffController {
     }
 
 
+    @PostMapping("/add5")
+    public Integer add5(@RequestBody StaffAddRequest request) {
+        return staffService.addStaff5(request);
+    }
+
+
     @PostMapping("/get-by-id-no")
     public StaffEntity getByIdNo(@RequestBody IdentityNoRequest req) {
         return staffService.getByIdNo(req.getIdNo());

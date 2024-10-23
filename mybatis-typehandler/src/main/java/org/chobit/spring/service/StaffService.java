@@ -165,6 +165,35 @@ public class StaffService extends ServiceImpl<StaffMapper, StaffEntity> {
         return this.save(staff);
     }
 
+    /**
+     * 新增员工信息
+     * <p>
+     * 通过mybatis mapper注解的形式
+     *
+     * @param req 新增请求
+     * @return 是否保存成功
+     */
+    public Integer addStaff5(StaffAddRequest req) {
+        if (isBlank(req.getStaffCode())) {
+            throw new RuntimeException("工号不能为空");
+        }
+        StaffEntity staff = this.getByStaffCode(req.getStaffCode());
+        if (null != staff) {
+            throw new RuntimeException("相同工号的记录已存在");
+        }
+
+        staff = new StaffEntity();
+        staff.setStaffCode(req.getStaffCode());
+        staff.setName(req.getName());
+        staff.setAge(req.getAge());
+        staff.setGender(req.getGender());
+        staff.setIdentityNo(req.getIdentityNo());
+
+        this.getBaseMapper().add2(staff);
+
+        return staff.getId();
+    }
+
 
     /**
      * 修改身份证号
