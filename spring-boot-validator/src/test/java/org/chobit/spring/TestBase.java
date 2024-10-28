@@ -2,8 +2,8 @@ package org.chobit.spring;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.chobit.common.json.LocalDateTimeModule;
-import org.chobit.common.utils.JsonKit;
+import org.chobit.commons.json.LocalDateTimeModule;
+import org.chobit.commons.utils.JsonKit;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
