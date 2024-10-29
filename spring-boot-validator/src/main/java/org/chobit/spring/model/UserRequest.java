@@ -1,5 +1,8 @@
 package org.chobit.spring.model;
 
+import org.chobit.commons.exception.ParamException;
+import org.chobit.commons.validation.SelfCheck;
+
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -7,7 +10,7 @@ import javax.validation.constraints.NotBlank;
  *
  * @author rui.zhang
  */
-public class UserRequest {
+public class UserRequest  {
 
 
     private Long id;
@@ -30,5 +33,11 @@ public class UserRequest {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @SelfCheck
+    public boolean check() throws ParamException {
+        System.out.println("111111111111");
+        return false;
     }
 }
