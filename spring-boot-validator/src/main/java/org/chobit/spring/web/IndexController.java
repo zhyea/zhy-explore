@@ -2,7 +2,7 @@ package org.chobit.spring.web;
 
 
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
-import org.chobit.spring.model.UserRequest;
+import org.chobit.spring.model.UserLoginRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +22,7 @@ public class IndexController {
 
 
     @PostMapping("/user")
-    public String user(@Validated @RequestBody UserRequest req) {
+    public String user(@Validated @RequestBody UserLoginRequest req) {
         return req.getName();
     }
 
