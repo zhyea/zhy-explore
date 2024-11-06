@@ -2,6 +2,7 @@ package org.chobit.spring.api;
 
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
 import org.chobit.spring.model.entity.StaffEntity;
+import org.chobit.spring.model.request.BatchQueryRequest;
 import org.chobit.spring.model.request.IdNoModifyRequest;
 import org.chobit.spring.model.request.IdentityNoRequest;
 import org.chobit.spring.model.request.StaffAddRequest;
@@ -54,5 +55,11 @@ public class StaffController {
     @PostMapping("/get-by-id-no")
     public StaffEntity getByIdNo(@RequestBody IdentityNoRequest req) {
         return staffService.getByIdNo(req.getIdNo());
+    }
+
+
+    @PostMapping("/batch-query")
+    public List<StaffEntity> getByIdNo2(@RequestBody BatchQueryRequest req) {
+        return staffService.batchQuery(req.getIdNoList());
     }
 }

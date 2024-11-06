@@ -71,4 +71,8 @@ public interface StaffMapper extends BaseMapper<StaffEntity> {
 
     StaffEntity getByIdentityNo(@Param("idNo") String idNo);
 
+
+
+    List<StaffEntity> findByIdentityNoList(@Param("idNoList") List<String> idNoList);
+
 }

@@ -32,10 +32,24 @@
         insert into staff (name, age, gender, identity_no, staff_code)
         values
         (
-            #{item.name}, #{item.age}, #{item.gender},
-            #{item.identityNo, typeHandler=org.chobit.spring.ext.mybatis.type.DlpTypeHandler},
-            #{item.staffCode}
+        #{item.name}, #{item.age}, #{item.gender},
+        #{item.identityNo, typeHandler=org.chobit.spring.ext.mybatis.type.DlpTypeHandler},
+        #{item.staffCode}
         )
     </insert>
+
+
+    <select id="findByIdentityNoList" resultMap="StaffResultMap">
+        select * from staff
+
+        <where>
+            <if test="idNoList!=null and idNoList.size>0">
+                identity_no in
+                <foreach item="item" index="index" collection="idNoList" open="(" separator="," close=")">
+                    #{item, typeHandler=org.chobit.spring.ext.mybatis.type.DlpTypeHandler}
+                </foreach>
+            </if>
+        </where>
+    </select>
 
 </mapper>

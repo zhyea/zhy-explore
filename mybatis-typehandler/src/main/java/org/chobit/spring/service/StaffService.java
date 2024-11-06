@@ -270,4 +270,10 @@ public class StaffService extends ServiceImpl<StaffMapper, StaffEntity> {
         return this.update(luw);
     }
 
+
+
+    public List<StaffEntity> batchQuery(List<String> idNoList){
+        return this.getBaseMapper().findByIdentityNoList(idNoList);
+    }
+
 }
