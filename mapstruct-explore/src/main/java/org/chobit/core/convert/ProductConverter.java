@@ -18,9 +18,7 @@ import java.util.List;
 @Mapper
 public interface ProductConverter {
 
-
 	ProductItem entity2ItemSimply(ProductEntity entity);
-
 
 	@Named("entity2Item")
 	default ProductItem entity2Item(ProductEntity entity) {

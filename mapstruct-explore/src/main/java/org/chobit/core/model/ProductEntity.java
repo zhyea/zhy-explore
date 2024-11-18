@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @Data
 public class ProductEntity {
 
-
 	/**
 	 * 名称
 	 */
@@ -22,7 +21,6 @@ public class ProductEntity {
 	 * 保质期
 	 */
 	private Integer qualityGranteeMonths;
-
 
 	/**
 	 * 生产日期

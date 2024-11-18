@@ -9,7 +9,6 @@ import java.time.LocalDate;
  */
 public enum ProductStatusEnum {
 
-
 	/**
 	 * 有效
 	 */
@@ -18,8 +17,7 @@ public enum ProductStatusEnum {
 	/**
 	 * 过期
 	 */
-	EXPIRED,
-	;
+	EXPIRED,;
 
 
 	/**
@@ -43,6 +41,4 @@ public enum ProductStatusEnum {
 
 		return status;
 	}
-
-
 }

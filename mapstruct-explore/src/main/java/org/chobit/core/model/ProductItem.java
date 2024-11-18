@@ -32,5 +32,4 @@ public class ProductItem {
 	 * 状态
 	 */
 	private ProductStatusEnum status;
-
 }
