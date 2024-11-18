@@ -1,8 +1,8 @@
 package org.chobit.spring.web;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.chobit.common.model.ResultWrapper;
-import org.chobit.common.utils.JsonKit;
+import org.chobit.commons.model.response.Result;
+import org.chobit.commons.utils.JsonKit;
 import org.chobit.spring.TestBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -15,7 +15,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.Map;
 
-import static org.chobit.common.utils.JsonKit.toJson;
+import static org.chobit.commons.utils.JsonKit.toJson;
 
 
 public abstract class ApiTestBase extends TestBase {
@@ -114,18 +114,18 @@ public abstract class ApiTestBase extends TestBase {
 
     protected <T> T fromResult(String json, Class<T> clazz) {
         System.out.println(json);
-        ResultWrapper<Object> resultWrapper = JsonKit.fromJson(json, new TypeReference<ResultWrapper<Object>>() {
+        Result<Object> resultWrapper = JsonKit.fromJson(json, new TypeReference<Result<Object>>() {
         });
-        String content = JsonKit.toJson(resultWrapper.getContent());
+        String content = JsonKit.toJson(resultWrapper.getData());
         return JsonKit.fromJson(content, clazz);
     }
 
 
     protected <T> T fromResult(String json, TypeReference<T> t) {
         System.out.println(json);
-        ResultWrapper<Object> resultWrapper = JsonKit.fromJson(json, new TypeReference<ResultWrapper<Object>>() {
+        Result<Object> resultWrapper = JsonKit.fromJson(json, new TypeReference<Result<Object>>() {
         });
-        String content = JsonKit.toJson(resultWrapper.getContent());
+        String content = JsonKit.toJson(resultWrapper.getData());
         return JsonKit.fromJson(content, t);
     }
 

@@ -1,5 +1,9 @@
 package org.chobit.spring.model;
 
+import org.chobit.commons.contract.Checkable;
+import org.chobit.commons.exception.ParamException;
+import org.chobit.commons.validation.WholeCheck;
+
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -7,7 +11,8 @@ import javax.validation.constraints.NotBlank;
  *
  * @author rui.zhang
  */
-public class UserRequest {
+@WholeCheck
+public class UserRequest implements Checkable {
 
 
     private Long id;
@@ -30,5 +35,11 @@ public class UserRequest {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean check() throws ParamException {
+        System.out.println("111111111111");
+        return false;
     }
 }

@@ -9,13 +9,8 @@ import java.util.Date;
 
 @TableName(value = "staff", autoResultMap = true)
 @Data
-public class StaffEntity {
+public class StaffEntity extends BaseEntity {
 
-
-    /**
-     * ID
-     */
-    private Integer id;
 
     /**
      * 姓名

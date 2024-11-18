@@ -40,7 +40,20 @@ public interface StaffMapper extends BaseMapper<StaffEntity> {
             " #{item.identityNo, typeHandler=org.chobit.spring.ext.mybatis.type.DlpTypeHandler},",
             " #{item.staffCode})"
     })
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     boolean add(@Param("item") StaffAddRequest request);
+
+
+    @Insert({
+            "insert into staff ",
+            "(name, age, gender, identity_no, staff_code)",
+            "values ",
+            "(#{item.name}, #{item.age}, #{item.gender},",
+            " #{item.identityNo, typeHandler=org.chobit.spring.ext.mybatis.type.DlpTypeHandler},",
+            " #{item.staffCode})"
+    })
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    boolean add2(@Param("item") StaffEntity entity);
 
 
 
@@ -57,5 +70,9 @@ public interface StaffMapper extends BaseMapper<StaffEntity> {
 
 
     StaffEntity getByIdentityNo(@Param("idNo") String idNo);
+
+
+
+    List<StaffEntity> findByIdentityNoList(@Param("idNoList") List<String> idNoList);
 
 }

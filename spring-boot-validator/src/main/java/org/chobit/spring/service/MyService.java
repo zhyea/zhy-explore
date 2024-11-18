@@ -23,17 +23,17 @@ public class MyService implements InitializingBean, DisposableBean {
 
     @PostConstruct
     public void init() {
-        System.out.println("--------->>> start my service init method");
+        //System.out.println("--------->>> start my service init method");
     }
 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("--------->>> after my service properties set");
+        //System.out.println("--------->>> after my service properties set");
     }
 
     @Override
     public void destroy() throws Exception {
-        System.out.println("--------->>> destroy my service");
+        //System.out.println("--------->>> destroy my service");
     }
 }
