@@ -92,13 +92,11 @@ public class ToJsonProcessor extends AbstractTypeProcessor {
 
 		JCTree.JCClassDecl classDecl = (JCTree.JCClassDecl) getTrees().getTree(typeElement);
 		classDecl.defs = classDecl.defs.append(methodDecl);
-
 	}
 
 	private JCBlock makeToStringBody() {
 		JCTree.JCExpression serializerIdent = getMethodExpression(JsonStringSerializer.class.getName(), "toJson");
 		List<JCTree.JCExpression> toJsonArgs = List.from(List.of(getTreeMaker().Ident(getName("this"))));
-
 
 		JCTree.JCReturn returnStatement = getTreeMaker().Return(
 				getTreeMaker().Apply(List.nil(), serializerIdent, toJsonArgs)
