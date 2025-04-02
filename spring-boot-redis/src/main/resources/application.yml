@@ -23,6 +23,6 @@ spring:
     prod
   redis:
     host: 127.0.0.2
-    port: 6386
+    port: 6397
     database: 0
 
