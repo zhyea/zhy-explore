@@ -28,7 +28,7 @@ public class RedisConfig {
 	private int port;
 
 
-	@Bean("redisConnectionFactoryOrder")
+	@Bean("redisqConnectionFactory")
 	public RedisConnectionFactory redisConnectionFactory() {
 		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
 		config.setHostName(host);
@@ -37,16 +37,9 @@ public class RedisConfig {
 	}
 
 
-	@Bean("redisqTemplate")
-	public RedisTemplate<String, String> redisqTemplate(
-			@Qualifier("redisConnectionFactoryOrder") RedisConnectionFactory redisConnectionFactory) {
-		return  createRedisTemplate(redisConnectionFactory);
-	}
-
-
 	@Bean("redisTemplateOrder")
 	public RedisTemplate<String, String> redisTemplate(
-			@Qualifier("redisConnectionFactoryOrder") RedisConnectionFactory redisConnectionFactory) {
+			@Qualifier("redisqConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
 		return  createRedisTemplate(redisConnectionFactory);
 	}
 
