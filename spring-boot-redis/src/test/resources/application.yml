@@ -8,3 +8,15 @@ spring:
     host: 127.0.0.1
     port: 6379
     database: 0
+
+
+redisq:
+  consumer:
+    - topic: topic1
+      consumer-id: consumer1
+      consume-timeout: 1000
+      consume-threads: 3
+      retry: multi
+      processor: zhyyy
+  producer:
+    - topic: topic1

@@ -37,9 +37,22 @@ public class RedisConfig {
 	}
 
 
+	@Bean("redisqTemplate")
+	public RedisTemplate<String, String> redisqTemplate(
+			@Qualifier("redisConnectionFactoryOrder") RedisConnectionFactory redisConnectionFactory) {
+		return  createRedisTemplate(redisConnectionFactory);
+	}
+
+
 	@Bean("redisTemplateOrder")
 	public RedisTemplate<String, String> redisTemplate(
 			@Qualifier("redisConnectionFactoryOrder") RedisConnectionFactory redisConnectionFactory) {
+		return  createRedisTemplate(redisConnectionFactory);
+	}
+
+
+
+	private RedisTemplate<String, String> createRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
 		RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(redisConnectionFactory);
 		RedisSerializer<String> serializer = new StringRedisSerializer(Charset.defaultCharset());
@@ -54,7 +67,6 @@ public class RedisConfig {
 		// 默认序列化
 		redisTemplate.setDefaultSerializer(new StringRedisSerializer());
 		return redisTemplate;
-
 	}
 
 
